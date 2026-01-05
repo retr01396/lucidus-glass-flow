@@ -15,10 +15,37 @@ const SukunaIntro = ({ onEnd }: SukunaIntroProps) => {
   const [hasTriggeredText, setHasTriggeredText] = useState(false);
   const [hasTriggeredLucidus, setHasTriggeredLucidus] = useState(false);
   const [hasTriggeredLogo, setHasTriggeredLogo] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    // Set a maximum timeout of 5 seconds - if video doesn't start playing, skip intro
+    timeoutRef.current = setTimeout(() => {
+      console.warn("Video loading timeout - skipping intro");
+      onEnd();
+    }, 5000);
+
+    const handleCanPlay = () => {
+      // Video is ready to play, clear timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
+
+    const handleError = () => {
+      console.error("Video failed to load - skipping intro");
+      setVideoError(true);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+      // Skip directly to main content
+      onEnd();
+    };
 
     const handleTimeUpdate = () => {
       const currentTime = video.currentTime;
@@ -63,17 +90,44 @@ const SukunaIntro = ({ onEnd }: SukunaIntroProps) => {
       }
     };
 
+    video.addEventListener("canplay", handleCanPlay);
+    video.addEventListener("error", handleError);
     video.addEventListener("timeupdate", handleTimeUpdate);
     video.addEventListener("ended", handleEnded);
     
     return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      video.removeEventListener("canplay", handleCanPlay);
+      video.removeEventListener("error", handleError);
       video.removeEventListener("timeupdate", handleTimeUpdate);
       video.removeEventListener("ended", handleEnded);
     };
   }, [onEnd, hasTriggeredText, hasTriggeredLucidus, hasTriggeredLogo]);
 
+  const handleSkip = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    onEnd();
+  };
+
+  // If video error, show nothing and skip
+  if (videoError) {
+    return null;
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
+      {/* Skip button */}
+      <button
+        onClick={handleSkip}
+        className="absolute top-4 right-4 z-60 px-4 py-2 text-white/60 hover:text-white text-sm font-display tracking-wider transition-colors duration-300 bg-white/10 hover:bg-white/20 rounded-lg backdrop-blur-sm"
+      >
+        SKIP INTRO
+      </button>
+
       {/* Video or frozen frame */}
       {isFrozen && lastFrame ? (
         <img
@@ -89,6 +143,7 @@ const SukunaIntro = ({ onEnd }: SukunaIntroProps) => {
           autoPlay
           muted
           playsInline
+          preload="auto"
         />
       )}
 

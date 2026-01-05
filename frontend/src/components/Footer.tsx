@@ -1,4 +1,4 @@
-import { Twitter, Instagram, Facebook } from "lucide-react";
+import { Youtube, Instagram, Facebook } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -11,25 +11,17 @@ const Footer = () => {
             </h3>
             <div className="space-y-2">
               <h2 className="font-display text-xl font-semibold">
-                INNOVATE 2025: MBA Management Fest
+                LUCIDUS 2026 : MANAGEMENT FEST
               </h2>
-              <a
-                href="mailto:contact@cce.edu.in"
-                className="text-accent underline text-sm"
-              >
-                mail:contact@cce.edu.in
-              </a>
             </div>
 
             <div className="space-y-2 text-sm text-foreground/80">
               <p className="uppercase text-[11px] tracking-[0.2em] text-foreground/60">
                 Organized by
               </p>
-              <p className="font-semibold">Innovate Labs</p>
-              <p>Dept of Computer Science</p>
-              <p>Dept of Management Science</p>
-              <p>Christ College of Engineering (Autonomous)</p>
-              <p>Irinjalakuda</p>
+              <p className="text-base font-semibold leading-relaxed">
+                Christ College of Engineering (Autonomous), and Christ Institution of Business Administration
+              </p>
             </div>
           </div>
 
@@ -38,40 +30,49 @@ const Footer = () => {
               Quick Links
             </h3>
             <div className="flex flex-col gap-2 text-sm">
-              {["Home", "About", "Schedule", "Sponsors", "Team", "Contact"].map(link => (
-                <span key={link} className="text-foreground/90">
-                  {link}
-                </span>
+              {[
+                { name: "Home", id: "home" },
+                { name: "About", id: "about" },
+                { name: "Schedule", id: "schedule" },
+                { name: "Sponsors", id: "sponsors" },
+                { name: "Team", id: "team" },
+                { name: "Contact", id: "contact" }
+              ].map(link => (
+                <button
+                  key={link.name}
+                  onClick={() => {
+                    const element = document.getElementById(link.id);
+                    if (element) {
+                      setTimeout(() => {
+                        element.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }, 0);
+                    }
+                  }}
+                  className="text-foreground/90 hover:text-foreground transition-colors duration-200 text-left cursor-pointer"
+                >
+                  {link.name}
+                </button>
               ))}
             </div>
           </div>
 
-          <div className="space-y-4 text-foreground">
-            <div className="space-y-2">
-              <h3 className="font-display text-sm uppercase tracking-[0.2em] text-foreground/80">
-                Policies
-              </h3>
-              <div className="flex flex-col gap-2 text-sm text-foreground/90">
-                <span>Privacy Policy</span>
-                <span>Terms &amp; Conditions</span>
-                <span>Code of Conduct</span>
-              </div>
+          <div className="space-y-6 text-foreground">
+            <div className="space-y-3 text-base text-foreground/90">
+              <p className="uppercase text-sm tracking-[0.2em] text-foreground/60 font-bold">
+                Faculty Coordinators
+              </p>
+              <p className="text-foreground/70 text-sm leading-relaxed">MR. Roshan David - 9809055360</p>
+              <p className="text-foreground/70 text-sm leading-relaxed">MR. John Mathew - 8086950545</p>
             </div>
 
-            <div className="space-y-2 text-sm text-foreground/90">
-              <p className="uppercase text-[11px] tracking-[0.2em] text-foreground/60">
-                Faculty Coordinator
+            <div className="space-y-3 text-base text-foreground/90">
+              <p className="uppercase text-sm tracking-[0.2em] text-foreground/60 font-bold">
+                Student Coordinators
               </p>
-              <p className="font-semibold">Edwin Shaji Malakaran</p>
-              <p className="text-foreground/70">+91 88787 68510</p>
-            </div>
-
-            <div className="space-y-2 text-sm text-foreground/90">
-              <p className="uppercase text-[11px] tracking-[0.2em] text-foreground/60">
-                Student Coordinator
-              </p>
-              <p className="font-semibold">Gautham Madhu</p>
-              <p className="text-foreground/70">+91 85431 87810</p>
+              <p className="text-foreground/70 text-sm leading-relaxed">Fazil Shahid Farook - 8089262591</p>
+              <p className="text-foreground/70 text-sm leading-relaxed">Saurav Suresh - 8086137123</p>
+              <p className="text-foreground/70 text-sm leading-relaxed">Alishya K.J - 8921461903</p>
+              <p className="text-foreground/70 text-sm leading-relaxed">Abel J Kolapran - 8891389600</p>
             </div>
 
             <div className="space-y-2">
@@ -80,17 +81,22 @@ const Footer = () => {
               </p>
               <div className="flex items-center gap-3">
                 <button
-                  aria-label="Twitter"
+                  aria-label="Youtube"
                   className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center hover:bg-white/15 transition-opacity duration-200"
                 >
-                  <Twitter className="w-4 h-4 text-white/80" />
+                  <Youtube className="w-4 h-4 text-white/80" />
                 </button>
-                <button
+                
+                <a
+                  href="https://www.instagram.com/lucidus.2k26?igsh=MXJzZGNoYWx4NnA4dw=="
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Instagram"
                   className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center hover:bg-white/15 transition-opacity duration-200"
                 >
                   <Instagram className="w-4 h-4 text-white/80" />
-                </button>
+                </a>
+
                 <button
                   aria-label="Facebook"
                   className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center hover:bg-white/15 transition-opacity duration-200"
@@ -103,11 +109,8 @@ const Footer = () => {
         </div>
 
         <div className="mt-10 flex flex-col items-center gap-4">
-          <button className="px-8 py-3 rounded-full bg-gradient-to-b from-orange-400 to-orange-500 text-white font-display text-base shadow-lg shadow-orange-500/30">
-            Become a Partner
-          </button>
           <p className="text-xs text-foreground/70 text-center">
-            © 2025 INNOVATE. ALL RIGHTS RESERVED.
+            © 2026 LUCIDUS. ALL RIGHTS RESERVED.
           </p>
         </div>
       </div>
@@ -116,5 +119,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-

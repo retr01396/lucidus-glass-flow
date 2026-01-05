@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Play } from "lucide-react";
 import lucidusLogo from "@/assets/lucidus-logo.png";
 import { useCinematicReveal } from "@/hooks/use-cinematic-reveal";
@@ -9,12 +9,63 @@ type HeroSectionProps = {
   stage: Stage;
 };
 
+interface TimeRemaining {
+  days: string;
+  hours: string;
+  minutes: string;
+  seconds: string;
+}
+
 const HeroSection = ({ stage }: HeroSectionProps) => {
   const { ref: heroRef, isVisible: heroVisible } = useCinematicReveal({ delay: 0 });
+  
+  const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>({
+    days: "00",
+    hours: "00",
+    minutes: "00",
+    seconds: "00"
+  });
+
+  useEffect(() => {
+    const calculateTimeRemaining = () => {
+      // Note: Verify if the date should be the 23rd or 24th with your team
+      const eventDate = new Date("2026-01-24T00:00:00").getTime();
+      const now = new Date().getTime();
+      const difference = eventDate - now;
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        setTimeRemaining({
+          days: String(days).padStart(2, "0"),
+          hours: String(hours).padStart(2, "0"),
+          minutes: String(minutes).padStart(2, "0"),
+          seconds: String(seconds).padStart(2, "0")
+        });
+      } else {
+        setTimeRemaining({
+          days: "00",
+          hours: "00",
+          minutes: "00",
+          seconds: "00"
+        });
+      }
+    };
+
+    calculateTimeRemaining();
+    const interval = setInterval(calculateTimeRemaining, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleRegister = () => {
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header', '_blank');
+  };
 
   return (
     <div className="flex flex-col items-center gap-6 w-full">
-      {/* Main Hero Panel */}
       <div 
         ref={heroRef}
         id="home"
@@ -22,10 +73,8 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
           heroVisible ? 'reveal-visible' : 'reveal-hidden'
         }`}
       >
-        {/* Inner glow effect */}
         <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent pointer-events-none" />
         
-        {/* Phoenix Logo */}
         <div className="mb-4 relative">
           <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full" />
           <img 
@@ -35,7 +84,6 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
           />
         </div>
 
-        {/* Title */}
         <h1 className="font-display text-3xl md:text-4xl font-black text-foreground mb-1 tracking-wider text-glow-cyan">
           LUCIDUS 2026
         </h1>
@@ -46,32 +94,37 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
           Christ College of Engineering, Irinjalakuda
         </p>
 
-        {/* Register Button */}
-        <button className="glow-button mb-6 attention-pulse px-10 py-3 text-sm tracking-widest font-display hover-react-strong micro-click-rebound glass-edge-light depth-layer-button">
+        <button 
+          onClick={handleRegister}
+          className="glow-button mb-6 attention-pulse px-10 py-3 text-sm tracking-widest font-display hover-react-strong micro-click-rebound glass-edge-light depth-layer-button"
+        >
           REGISTER NOW
         </button>
 
-        {/* Countdown Timer */}
         <div className="flex items-center justify-center gap-1.5 mb-6">
           {[
-            { value: "07", label: "D" },
-            { value: "08", label: "H" },
-            { value: "36", label: "M" },
-            { value: "45", label: "S" },
+            { value: timeRemaining.days, label: "D" },
+            { value: timeRemaining.hours, label: "H" },
+            { value: timeRemaining.minutes, label: "M" },
+            { value: timeRemaining.seconds, label: "S" },
           ].map((item, index) => (
             <div key={index} className="flex items-center">
               <div 
                 className="countdown-box px-4 py-2 transition-all duration-500 hover:scale-110 hover:shadow-glow-cyan"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <span className="font-display text-xl font-bold text-foreground">{item.value}</span>
+                <span className="font-display text-xl font-bold text-foreground tabular-nums">
+                  {item.value}
+                </span>
+                <span className="block text-[10px] text-foreground/50 font-display tracking-wider">
+                  {item.label}
+                </span>
               </div>
               {index < 3 && <span className="text-foreground/40 text-xl mx-1 font-display">:</span>}
             </div>
           ))}
         </div>
 
-        {/* Video Cards */}
         <div className="grid grid-cols-3 gap-3">
           {["DEAN'S MESSAGE", "FEST THEME", "WATCH TEASER"].map((title, index) => (
             <div 

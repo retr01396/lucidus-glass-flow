@@ -1,19 +1,20 @@
 import { useState } from "react";
-import { Coins, Swords, Target, Cog, Users, Trophy, Music, Sparkles, Film, Video } from "lucide-react";
+import { Coins, Swords, Target, Cog, Users, Trophy, Music, Sparkles, Video, Anchor, Dribbble } from "lucide-react";
 import EventDetailModal from "./EventDetailModal";
 import { useCinematicReveal, useFocusSpotlight } from "@/hooks/use-cinematic-reveal";
 
 const allEvents = [
-  { icon: Coins, title: "The Money Alchemist", subtitle: "Finance Game", prize: "₹30,000" },
-  { icon: Swords, title: "The Shogun Syndicate", subtitle: "BMT", prize: "₹30,000" },
-  { icon: Target, title: "Log Horizon", subtitle: "Marketing Game", prize: "₹30,000" },
-  { icon: Cog, title: "Shadow Break", subtitle: "Operations Game", prize: "₹30,000" },
-  { icon: Users, title: "The Bond Bureau", subtitle: "HR Game", prize: "₹30,000" },
-  { icon: Trophy, title: "Project Kaizen", subtitle: "Best Manager", prize: "₹24,000" },
-  { icon: Music, title: "Hibike", subtitle: "Group Dance", prize: "₹25,000" },
-  { icon: Sparkles, title: "Oshare Festival", subtitle: "Fashion Show", prize: "₹50,000" },
-  { icon: Film, title: "Quantum Rift", subtitle: "Film Spoofing", prize: "₹20,000" },
-  { icon: Video, title: "Mirai Motion", subtitle: "Reel Making", prize: "₹8,000" },
+  { icon: Coins, title: "The Money Alchemist", subtitle: "Finance Game", prize: "₹14,500" },
+  { icon: Swords, title: "The Shogun Syndicate", subtitle: "BMT", prize: "₹14,500" },
+  { icon: Target, title: "Log Horizon", subtitle: "Marketing Game", prize: "₹14,500" },
+  { icon: Cog, title: "Shadow Break", subtitle: "Operations Game", prize: "₹14,500" },
+  { icon: Users, title: "The Bond Bureau", subtitle: "HR Game", prize: "₹14,500" },
+  { icon: Trophy, title: "Project Kaizen", subtitle: "Best Manager", prize: "₹15,000" },
+  { icon: Anchor, title: "GrandLine", subtitle: "IPL Auction", prize: "₹14,500" },
+  { icon: Dribbble, title: "BlueLock", subtitle: "3s Football Game", prize: "₹7,000" },
+  { icon: Music, title: "Hibike", subtitle: "Group Dance", prize: "₹20,000" },
+  { icon: Sparkles, title: "Oshare Festival", subtitle: "Fashion Show", prize: "₹20,000" },
+  { icon: Video, title: "Mirai Motion", subtitle: "Reel Making", prize: "₹3,000" },
 ];
 
 const AllEventsSection = () => {

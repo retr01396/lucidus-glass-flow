@@ -7,71 +7,61 @@ import AllEventsSection from "@/components/AllEventsSection";
 import AboutSection from "@/components/AboutSection";
 import GeneralGuidelinesSection from "@/components/GeneralGuidelinesSection";
 import LiquidBackground from "@/components/LiquidBackground";
-import SponsorsSection from "@/components/SponsorsSection";
-import SpeakersSection from "@/components/SpeakersSection";
 import Footer from "@/components/Footer";
 
-type Stage = "sukuna" | "intro-sequence" | "settle";
+type Stage = "intro-sequence" | "settle";
 
 type IndexProps = {
   stage: Stage;
-  blurAmount?: number;
-  overlayOpacity?: number;
 };
 
-const Index = ({
-  stage,
-  blurAmount = 0,
-  overlayOpacity = 0,
-}: IndexProps) => {
-  const isIntroSequence = stage === "intro-sequence";
+const Index = ({ stage }: IndexProps) => {
   const isSettled = stage === "settle";
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-y-auto overflow-x-hidden">
       {/* Cinematic background */}
       <div
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${cinematicBg})` }}
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-700 -z-10"
+        style={{ 
+          backgroundImage: `url(${cinematicBg})`,
+          opacity: isSettled ? 1 : 0.7
+        }}
       />
 
       {/* Soft depth overlay */}
-      <div className="fixed inset-0 bg-gradient-to-br from-background/80 via-background/40 to-background/70" />
+      <div className="fixed inset-0 bg-gradient-to-br from-background/80 via-background/40 to-background/70 transition-opacity duration-700 -z-10" />
 
-      {/* Liquid background (disabled during intro/settle for performance) */}
-      {!isIntroSequence && !isSettled && <LiquidBackground />}
+      {/* Liquid background - enabled after intro for smooth experience */}
+      {isSettled && <LiquidBackground />}
 
-      {/* Ambient glow orbs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-pulse-glow" />
-        <div
-          className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-accent/15 rounded-full blur-[100px] animate-pulse-glow"
-          style={{ animationDelay: "1s" }}
+      {/* Ambient glow orbs - animate in smoothly */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+        <div 
+          className={`absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-pulse-glow transition-opacity duration-1000 ${
+            isSettled ? 'opacity-100' : 'opacity-0'
+          }`}
         />
         <div
-          className="absolute top-1/2 right-1/3 w-64 h-64 bg-ice/10 rounded-full blur-[80px] animate-pulse-glow"
-          style={{ animationDelay: "2s" }}
+          className={`absolute bottom-1/3 right-1/4 w-80 h-80 bg-accent/15 rounded-full blur-[100px] animate-pulse-glow transition-opacity duration-1000 ${
+            isSettled ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ animationDelay: "1s", transitionDelay: "0.2s" }}
+        />
+        <div
+          className={`absolute top-1/2 right-1/3 w-64 h-64 bg-ice/10 rounded-full blur-[80px] animate-pulse-glow transition-opacity duration-1000 ${
+            isSettled ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ animationDelay: "2s", transitionDelay: "0.4s" }}
         />
       </div>
 
-      {/* Main content */}
+      {/* Main content - smooth fade in */}
       <div
-        className="relative z-10 min-h-screen p-4 md:p-6 transition-[filter] duration-500 ease-out"
-        style={{
-          filter:
-            (isIntroSequence || isSettled) && blurAmount > 0
-              ? `blur(${blurAmount}px)`
-              : "none",
-        }}
+        className={`relative z-10 min-h-screen p-4 md:p-6 transition-all duration-700 ease-out ${
+          isSettled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`}
       >
-        {/* Black overlay during intro + settle */}
-        {(isIntroSequence || isSettled) && overlayOpacity > 0 && (
-          <div
-            className="fixed inset-0 bg-black pointer-events-none transition-opacity duration-500 ease-out z-40"
-            style={{ opacity: overlayOpacity }}
-          />
-        )}
-
         {/* Header label */}
         <div className="text-center mb-4">
           <span className="text-foreground/60 text-sm font-display tracking-widest">
@@ -104,16 +94,6 @@ const Index = ({
 
         {/* General Guidelines Section */}
         <GeneralGuidelinesSection />
-
-        {/* Sponsors / Backed By Section */}
-        <div className="mt-8">
-          <SponsorsSection />
-        </div>
-
-        {/* Team Section */}
-        <div className="mt-8 max-w-6xl mx-auto">
-          <SpeakersSection />
-        </div>
 
         {/* Footer */}
         <Footer />
