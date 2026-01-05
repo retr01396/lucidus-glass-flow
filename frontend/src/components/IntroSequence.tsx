@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import lucidusLogo from "@/assets/lucidus-logo.png";
+import { Button } from "@/components/ui/button";
 
 type IntroSequenceProps = {
   onComplete: () => void;
@@ -14,72 +15,138 @@ const IntroSequence = ({
   onOverlayChange,
   onSukunaFadeOut
 }: IntroSequenceProps) => {
-  const [logoOpacity, setLogoOpacity] = useState(1);
-  const animationFrameRef = useRef<number | null>(null);
+  const [textStage, setTextStage] = useState<"welcome" | "lucidus" | "logo" | "fadeout">("welcome");
+  const [logoOpacity, setLogoOpacity] = useState(0);
+
+  const handleSkip = () => {
+    // Immediately complete the intro
+    setLogoOpacity(0);
+    onBlurChange(0);
+    if (onSukunaFadeOut) {
+      onSukunaFadeOut(0);
+    }
+    onOverlayChange(0);
+    onComplete();
+  };
 
   useEffect(() => {
-    // Start logo fade out and blur reduction simultaneously
-    // Logo fade: 200ms, Blur reduction: 700ms (both start at same time)
+    // Show "WELCOME TO" for 0.8 seconds (reduced from 1.5s)
+    const welcomeTimer = setTimeout(() => {
+      setTextStage("lucidus");
+    }, 800);
+
+    // Show "LUCIDUS" for 0.8 seconds (reduced from 1.5s)
+    const lucidusTimer = setTimeout(() => {
+      setTextStage("logo");
+      setLogoOpacity(1);
+    }, 1600);
+
+    // Hold logo for 0.8 seconds then start fade out (reduced from 1.2s)
+    const logoHoldTimer = setTimeout(() => {
+      setTextStage("fadeout");
+      setLogoOpacity(0);
+    }, 2400);
+
+    // No blur - set to 0 immediately
+    onBlurChange(0);
+    onOverlayChange(0);
+    if (onSukunaFadeOut) {
+      onSukunaFadeOut(1);
+    }
+
+    // Start fade out transition
     const startTime = performance.now();
-    const logoFadeDuration = 200; // Logo fade-out duration (quick)
-    const blurReductionDuration = 700; // Blur reduction duration (600-800ms)
+    const fadeOutStart = 2400; // Start fade when logo starts fading
+    const fadeOutDuration = 300; // Quick fade out (reduced from 600ms)
 
     const animate = (timestamp: number) => {
       const elapsed = timestamp - startTime;
       
-      // Logo fade progress (0 → 1 over 200ms)
-      const logoProgress = Math.min(elapsed / logoFadeDuration, 1);
-      setLogoOpacity(1 - logoProgress);
-
-      // Blur reduction progress (0 → 1 over 700ms)
-      const blurProgress = Math.min(elapsed / blurReductionDuration, 1);
-      
-      // Fade out black background (SukunaIntro) (opacity 1 → 0) - same as blur
-      if (onSukunaFadeOut) {
-        onSukunaFadeOut(1 - blurProgress);
+      if (elapsed < fadeOutStart) {
+        // Keep black background visible during text/logo display
+        if (onSukunaFadeOut) {
+          onSukunaFadeOut(1);
+        }
+      } else {
+        // Fade out black background quickly
+        const fadeElapsed = elapsed - fadeOutStart;
+        const fadeProgress = Math.min(fadeElapsed / fadeOutDuration, 1);
+        
+        if (onSukunaFadeOut) {
+          onSukunaFadeOut(1 - fadeProgress);
+        }
       }
 
-      // Reduce blur progressively (16 → 0)
-      onBlurChange(16 * (1 - blurProgress));
-
-      // No overlay animation needed
-      onOverlayChange(0);
-
-      // Continue until blur reduction completes
-      if (blurProgress < 1) {
-        animationFrameRef.current = requestAnimationFrame(animate);
+      if (elapsed < fadeOutStart + fadeOutDuration) {
+        requestAnimationFrame(animate);
       } else {
-        // Animation complete
+        // Complete transition
+        setLogoOpacity(0);
+        if (onSukunaFadeOut) {
+          onSukunaFadeOut(0);
+        }
         onComplete();
       }
     };
 
-    // Start immediately, no delay
-    animationFrameRef.current = requestAnimationFrame(animate);
+    const animationId = requestAnimationFrame(animate);
 
     return () => {
-      if (animationFrameRef.current !== null) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
+      clearTimeout(welcomeTimer);
+      clearTimeout(lucidusTimer);
+      clearTimeout(logoHoldTimer);
+      cancelAnimationFrame(animationId);
     };
   }, [onComplete, onBlurChange, onOverlayChange, onSukunaFadeOut]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-      {/* Logo */}
-      <div
-        className="absolute inset-0 flex items-center justify-center"
-        style={{
-          opacity: logoOpacity,
-          transition: "opacity 200ms ease-in-out",
-        }}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black gpu-accelerated">
+      {/* Skip Button */}
+      <Button
+        onClick={handleSkip}
+        variant="outline"
+        className="absolute top-8 right-8 z-50 bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-sm pointer-events-auto transition-all duration-300 hover:scale-105 smooth-appear"
       >
-        <img
-          src={lucidusLogo}
-          alt="Lucidus Logo"
-          className="w-48 h-48 md:w-64 md:h-64 object-contain"
-        />
-      </div>
+        Skip
+      </Button>
+
+      {/* Welcome Text */}
+      {textStage === "welcome" && (
+        <div className="text-center smooth-appear">
+          <h1 className="text-4xl md:text-6xl font-bold text-white tracking-wider animate-fade-in">
+            WELCOME TO
+          </h1>
+        </div>
+      )}
+
+      {/* Lucidus Text */}
+      {textStage === "lucidus" && (
+        <div className="text-center smooth-appear">
+          <h1 className="text-5xl md:text-7xl font-bold text-white tracking-wider animate-fade-in">
+            LUCIDUS
+          </h1>
+        </div>
+      )}
+
+      {/* Logo */}
+      {(textStage === "logo" || textStage === "fadeout") && (
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-center gpu-accelerated"
+          style={{
+            opacity: logoOpacity,
+            transition: "opacity 400ms cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        >
+          <img
+            src={lucidusLogo}
+            alt="Lucidus Logo"
+            className="w-48 h-48 md:w-64 md:h-64 object-contain mb-4 smooth-appear"
+          />
+          <h1 className="text-3xl md:text-5xl font-bold text-white tracking-wider smooth-appear delay-100">
+            LUCIDUS
+          </h1>
+        </div>
+      )}
     </div>
   );
 };

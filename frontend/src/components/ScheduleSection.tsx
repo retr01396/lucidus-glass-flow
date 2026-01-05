@@ -1,11 +1,17 @@
-import { useState } from "react";
 import { Download } from "lucide-react";
 import { useCinematicReveal } from "@/hooks/use-cinematic-reveal";
 import Character3D from "./Character3D";
 
 const ScheduleSection = () => {
   const { ref: scheduleRef, isVisible: scheduleVisible } = useCinematicReveal({ delay: 300 });
-  const [activeTimeIndex, setActiveTimeIndex] = useState<number | null>(null);
+
+  // Google Drive direct download link
+  const brochureUrl = "https://drive.google.com/uc?export=download&id=12GpD7NfTjl1TEjc-RxQZ_nCMWLZEfdC3";
+
+  const handleDownload = () => {
+    // Open the download link in a new tab
+    window.open(brochureUrl, '_blank');
+  };
 
   const scheduleEvents = [
     { time: "9:00 AM", title: "Inauguration", location: "(Main Audi)" },
@@ -23,60 +29,27 @@ const ScheduleSection = () => {
       <div className="flex flex-col md:flex-row gap-6 items-start">
         {/* Schedule Content - Full width on left */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center justify-between mb-6">
             <h3 className="font-display text-lg font-bold text-foreground tracking-wide text-glow-cyan">SCHEDULE</h3>
-            <button className="glass-button text-[10px] flex items-center gap-2 py-2 px-4 font-display transition-all duration-300 hover:scale-105">
+            <button 
+              onClick={handleDownload}
+              className="glass-button text-[10px] flex items-center gap-2 py-2 px-4 font-display transition-all duration-300 hover:scale-105 hover:shadow-glow-cyan attention-pulse"
+            >
               <Download className="w-3 h-3" />
-              Download PDF
+              Download Brochure
             </button>
           </div>
 
-          {/* Timeline */}
-          <div className="mb-5">
-            <div className="flex justify-between mb-4">
-              {scheduleEvents.map((event, index) => (
-                <span 
-                  key={index}
-                  className={`glass-button text-[11px] py-1.5 px-4 font-display cursor-pointer transition-all duration-500 ${
-                    activeTimeIndex === index ? 'shadow-glow-cyan scale-105' : ''
-                  }`}
-                  onMouseEnter={() => setActiveTimeIndex(index)}
-                  onMouseLeave={() => setActiveTimeIndex(null)}
-                >
-                  {event.time}
-                </span>
-              ))}
-            </div>
-            <div className="timeline-track">
-              {scheduleEvents.map((_, index) => (
-                <div 
-                  key={index}
-                  className={`timeline-marker transition-all duration-500 ${
-                    activeTimeIndex === index ? 'timeline-node-active scale-150' : ''
-                  }`}
-                  style={{ left: `${15 + index * 35}%` }}
-                  onMouseEnter={() => setActiveTimeIndex(index)}
-                  onMouseLeave={() => setActiveTimeIndex(null)}
-                />
-              ))}
-            </div>
-          </div>
-
           {/* Event Cards */}
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {scheduleEvents.map((event, index) => (
               <div 
                 key={index} 
-                className={`glass-card text-center py-4 transition-all duration-500 cursor-pointer ${
-                  activeTimeIndex === index 
-                    ? 'scale-105 shadow-glow-cyan' 
-                    : activeTimeIndex !== null 
-                      ? 'opacity-50 blur-[1px]' 
-                      : ''
-                }`}
-                onMouseEnter={() => setActiveTimeIndex(index)}
-                onMouseLeave={() => setActiveTimeIndex(null)}
+                className="glass-card text-center py-4 transition-all duration-500 hover:scale-105 hover:shadow-glow-cyan cursor-pointer"
               >
+                <div className="text-primary text-xs font-bold font-display mb-2 tracking-wider">
+                  {event.time}
+                </div>
                 <h4 className="text-foreground text-xs font-bold font-display mb-1 tracking-wide">
                   {event.title}
                 </h4>

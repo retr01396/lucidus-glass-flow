@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,35 +6,26 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import SukunaIntro from "@/components/SukunaIntro";
 import IntroSequence from "@/components/IntroSequence";
 import WaterBackground from "@/components/WaterBackground";
 
-type Stage = "sukuna" | "intro-sequence" | "settle";
+type Stage = "intro-sequence" | "settle";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [stage, setStage] = useState<Stage>("sukuna");
-  const [blurAmount, setBlurAmount] = useState(16);
-  const [overlayOpacity, setOverlayOpacity] = useState(0);
-  const [sukunaOpacity, setSukunaOpacity] = useState(1);
+  const [stage, setStage] = useState<Stage>("intro-sequence");
+  const [introOpacity, setIntroOpacity] = useState(1);
+  const [showContent, setShowContent] = useState(false);
 
-  const handleSukunaEnd = () => {
-    // Video ended, freeze frame, start intro sequence
-    setStage("intro-sequence");
-    // Mount website immediately with blur only (no opacity animation)
-    setBlurAmount(16);
-    setOverlayOpacity(0);
-    setSukunaOpacity(1);
-  };
+  // Show content immediately when component mounts for smooth loading
+  useEffect(() => {
+    setShowContent(true);
+  }, []);
 
   const handleIntroSequenceComplete = () => {
-    // Intro sequence complete
     setStage("settle");
-    setBlurAmount(0);
-    setOverlayOpacity(0);
-    setSukunaOpacity(0);
+    setIntroOpacity(0);
   };
 
   const appRoutes = (
@@ -42,13 +33,7 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={
-            <Index
-              stage={stage}
-              blurAmount={blurAmount}
-              overlayOpacity={overlayOpacity}
-            />
-          }
+          element={<Index stage={stage} />}
         />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
@@ -62,29 +47,29 @@ const App = () => {
         <WaterBackground />
         <Toaster />
         <Sonner />
-        {/* Mount website behind intro sequence - always visible, blur only */}
-        {(stage === "intro-sequence" || stage === "settle") && (
-          <div className="fixed inset-0 z-0">
-            {appRoutes}
-          </div>
-        )}
-        {/* Show website normally when settled */}
-        {stage === "settle" && appRoutes}
-        {(stage === "sukuna" || stage === "intro-sequence") && (
-          <div
-            className="fixed inset-0 z-50 transition-opacity duration-800 ease-in-out"
-            style={{ opacity: sukunaOpacity }}
-          >
-            <SukunaIntro onEnd={handleSukunaEnd} />
-          </div>
-        )}
+        
+        {/* Main content - visible from start with smooth fade-in */}
+        <div 
+          className={`relative z-0 transition-opacity duration-500 ${
+            showContent ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          {appRoutes}
+        </div>
+        
+        {/* Intro overlay that fades out */}
         {stage === "intro-sequence" && (
-          <IntroSequence 
-            onComplete={handleIntroSequenceComplete}
-            onBlurChange={setBlurAmount}
-            onOverlayChange={setOverlayOpacity}
-            onSukunaFadeOut={setSukunaOpacity}
-          />
+          <div
+            className="fixed inset-0 z-50 transition-opacity duration-300 pointer-events-none"
+            style={{ opacity: introOpacity, pointerEvents: introOpacity > 0 ? 'auto' : 'none' }}
+          >
+            <IntroSequence 
+              onComplete={handleIntroSequenceComplete}
+              onBlurChange={() => {}} // No blur needed
+              onOverlayChange={() => {}} // No overlay needed
+              onSukunaFadeOut={setIntroOpacity}
+            />
+          </div>
         )}
       </TooltipProvider>
     </QueryClientProvider>

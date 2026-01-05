@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Play } from "lucide-react";
 import lucidusLogo from "@/assets/lucidus-logo.png";
 import { useCinematicReveal } from "@/hooks/use-cinematic-reveal";
@@ -11,6 +11,45 @@ type HeroSectionProps = {
 
 const HeroSection = ({ stage }: HeroSectionProps) => {
   const { ref: heroRef, isVisible: heroVisible } = useCinematicReveal({ delay: 0 });
+  
+  // Event date: January 23rd, 2026
+  const eventDate = new Date("2026-01-23T00:00:00").getTime();
+  
+  const [countdown, setCountdown] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance > 0) {
+        setCountdown({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000),
+        });
+      } else {
+        // Event has started or passed
+        setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    // Update immediately
+    updateCountdown();
+
+    // Update every second
+    const interval = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(interval);
+  }, [eventDate]);
+
+  const formatNumber = (num: number) => String(num).padStart(2, "0");
 
   return (
     <div className="flex flex-col items-center gap-6 w-full">
@@ -54,17 +93,22 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
         {/* Countdown Timer */}
         <div className="flex items-center justify-center gap-1.5 mb-6">
           {[
-            { value: "07", label: "D" },
-            { value: "08", label: "H" },
-            { value: "36", label: "M" },
-            { value: "45", label: "S" },
+            { value: formatNumber(countdown.days), label: "D" },
+            { value: formatNumber(countdown.hours), label: "H" },
+            { value: formatNumber(countdown.minutes), label: "M" },
+            { value: formatNumber(countdown.seconds), label: "S" },
           ].map((item, index) => (
             <div key={index} className="flex items-center">
               <div 
                 className="countdown-box px-4 py-2 transition-all duration-500 hover:scale-110 hover:shadow-glow-cyan"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <span className="font-display text-xl font-bold text-foreground">{item.value}</span>
+                <span className="font-display text-xl font-bold text-foreground tabular-nums">
+                  {item.value}
+                </span>
+                <span className="block text-[10px] text-foreground/50 font-display tracking-wider">
+                  {item.label}
+                </span>
               </div>
               {index < 3 && <span className="text-foreground/40 text-xl mx-1 font-display">:</span>}
             </div>
