@@ -85,12 +85,15 @@ const Footer = () => {
                 >
                   <Twitter className="w-4 h-4 text-white/80" />
                 </button>
-                <button
+                <a
+                  href="https://www.instagram.com/lucidus.2k26"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Instagram"
                   className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center hover:bg-white/15 transition-opacity duration-200"
                 >
                   <Instagram className="w-4 h-4 text-white/80" />
-                </button>
+                </a>
                 <button
                   aria-label="Facebook"
                   className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center hover:bg-white/15 transition-opacity duration-200"

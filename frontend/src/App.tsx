@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -19,6 +19,21 @@ const App = () => {
   const [blurAmount, setBlurAmount] = useState(16);
   const [overlayOpacity, setOverlayOpacity] = useState(0);
   const [sukunaOpacity, setSukunaOpacity] = useState(1);
+
+  // Failsafe: if intro doesn't complete within 10 seconds, force skip to main content
+  useEffect(() => {
+    const failsafeTimeout = setTimeout(() => {
+      if (stage !== "settle") {
+        console.warn("Intro sequence timeout - forcing skip to main content");
+        setStage("settle");
+        setBlurAmount(0);
+        setOverlayOpacity(0);
+        setSukunaOpacity(0);
+      }
+    }, 10000); // 10 second maximum for entire intro
+
+    return () => clearTimeout(failsafeTimeout);
+  }, [stage]);
 
   const handleSukunaEnd = () => {
     // Video ended, freeze frame, start intro sequence
