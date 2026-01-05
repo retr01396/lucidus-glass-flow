@@ -51,6 +51,11 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
 
   const formatNumber = (num: number) => String(num).padStart(2, "0");
 
+  const handleRegister = () => {
+    // Open registration form in new tab
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header', '_blank');
+  };
+
   return (
     <div className="flex flex-col items-center gap-6 w-full">
       {/* Main Hero Panel */}
@@ -86,7 +91,10 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
         </p>
 
         {/* Register Button */}
-        <button className="glow-button mb-6 attention-pulse px-10 py-3 text-sm tracking-widest font-display hover-react-strong micro-click-rebound glass-edge-light depth-layer-button">
+        <button 
+          onClick={handleRegister}
+          className="glow-button mb-6 attention-pulse px-10 py-3 text-sm tracking-widest font-display hover-react-strong micro-click-rebound glass-edge-light depth-layer-button"
+        >
           REGISTER NOW
         </button>
 
