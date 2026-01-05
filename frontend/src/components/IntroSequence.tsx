@@ -30,22 +30,22 @@ const IntroSequence = ({
   };
 
   useEffect(() => {
-    // Show "WELCOME TO" for 0.8 seconds (reduced from 1.5s)
+    // Show "WELCOME TO" for 1.5 seconds (increased for readability)
     const welcomeTimer = setTimeout(() => {
       setTextStage("lucidus");
-    }, 800);
+    }, 1500);
 
-    // Show "LUCIDUS" for 0.8 seconds (reduced from 1.5s)
+    // Show "LUCIDUS" for 1.5 seconds (increased for readability)
     const lucidusTimer = setTimeout(() => {
       setTextStage("logo");
       setLogoOpacity(1);
-    }, 1600);
+    }, 3000);
 
-    // Hold logo for 0.8 seconds then start fade out (reduced from 1.2s)
+    // Hold logo for 2 seconds then start fade out (increased for readability)
     const logoHoldTimer = setTimeout(() => {
       setTextStage("fadeout");
       setLogoOpacity(0);
-    }, 2400);
+    }, 5000);
 
     // No blur - set to 0 immediately
     onBlurChange(0);
@@ -56,8 +56,8 @@ const IntroSequence = ({
 
     // Start fade out transition
     const startTime = performance.now();
-    const fadeOutStart = 2400; // Start fade when logo starts fading
-    const fadeOutDuration = 300; // Quick fade out (reduced from 600ms)
+    const fadeOutStart = 5000; // Start fade when logo starts fading
+    const fadeOutDuration = 500; // Smooth fade out
 
     const animate = (timestamp: number) => {
       const elapsed = timestamp - startTime;

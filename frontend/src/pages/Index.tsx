@@ -7,7 +7,6 @@ import AllEventsSection from "@/components/AllEventsSection";
 import AboutSection from "@/components/AboutSection";
 import GeneralGuidelinesSection from "@/components/GeneralGuidelinesSection";
 import LiquidBackground from "@/components/LiquidBackground";
-import SpeakersSection from "@/components/SpeakersSection";
 import Footer from "@/components/Footer";
 
 type Stage = "intro-sequence" | "settle";
@@ -95,11 +94,6 @@ const Index = ({ stage }: IndexProps) => {
 
         {/* General Guidelines Section */}
         <GeneralGuidelinesSection />
-
-        {/* Team Section */}
-        <div className="mt-8 max-w-6xl mx-auto">
-          <SpeakersSection />
-        </div>
 
         {/* Footer */}
         <Footer />
