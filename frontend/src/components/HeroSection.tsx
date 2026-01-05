@@ -47,7 +47,10 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
         </p>
 
         {/* Register Button */}
-        <button className="glow-button mb-6 attention-pulse px-10 py-3 text-sm tracking-widest font-display hover-react-strong micro-click-rebound glass-edge-light depth-layer-button">
+        <button 
+          onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header", "_blank")}
+          className="glow-button mb-6 attention-pulse px-10 py-3 text-sm tracking-widest font-display hover-react-strong micro-click-rebound glass-edge-light depth-layer-button"
+        >
           REGISTER NOW
         </button>
 
