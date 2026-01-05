@@ -18,36 +18,22 @@ const App = () => {
   const [introOpacity, setIntroOpacity] = useState(1);
   const [showContent, setShowContent] = useState(false);
 
-<<<<<<< HEAD
   // Show content immediately when component mounts for smooth loading
   useEffect(() => {
     setShowContent(true);
   }, []);
-=======
+
   // Failsafe: if intro doesn't complete within 10 seconds, force skip to main content
   useEffect(() => {
     const failsafeTimeout = setTimeout(() => {
       if (stage !== "settle") {
         console.warn("Intro sequence timeout - forcing skip to main content");
-        setStage("settle");
-        setBlurAmount(0);
-        setOverlayOpacity(0);
-        setSukunaOpacity(0);
+        handleIntroSequenceComplete();
       }
     }, 10000); // 10 second maximum for entire intro
 
     return () => clearTimeout(failsafeTimeout);
   }, [stage]);
-
-  const handleSukunaEnd = () => {
-    // Video ended, freeze frame, start intro sequence
-    setStage("intro-sequence");
-    // Mount website immediately with blur only (no opacity animation)
-    setBlurAmount(16);
-    setOverlayOpacity(0);
-    setSukunaOpacity(1);
-  };
->>>>>>> e9edfe81918af6cd4d8b8568225280c9a4af2e39
 
   const handleIntroSequenceComplete = () => {
     setStage("settle");
@@ -61,7 +47,6 @@ const App = () => {
           path="/"
           element={<Index stage={stage} />}
         />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
@@ -91,8 +76,8 @@ const App = () => {
           >
             <IntroSequence 
               onComplete={handleIntroSequenceComplete}
-              onBlurChange={() => {}} // No blur needed
-              onOverlayChange={() => {}} // No overlay needed
+              onBlurChange={() => {}} 
+              onOverlayChange={() => {}} 
               onSukunaFadeOut={setIntroOpacity}
             />
           </div>
