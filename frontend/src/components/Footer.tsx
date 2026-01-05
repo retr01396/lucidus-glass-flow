@@ -1,4 +1,4 @@
-import { Youtube, Instagram } from "lucide-react";
+import { Youtube, Instagram, Facebook } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -19,7 +19,9 @@ const Footer = () => {
               <p className="uppercase text-[11px] tracking-[0.2em] text-foreground/60">
                 Organized by
               </p>
-              <p className="text-base font-semibold leading-relaxed">Christ College of Engineering (Autonomous), and Christ Institution of Business Administration</p>
+              <p className="text-base font-semibold leading-relaxed">
+                Christ College of Engineering (Autonomous), and Christ Institution of Business Administration
+              </p>
             </div>
           </div>
 
@@ -84,12 +86,22 @@ const Footer = () => {
                 >
                   <Youtube className="w-4 h-4 text-white/80" />
                 </button>
-                <button
-                  onClick={() => window.open("https://www.instagram.com/lucidus.2k26?igsh=MXJzZGNoYWx4NnA4dw==", "_blank")}
+                
+                <a
+                  href="https://www.instagram.com/lucidus.2k26?igsh=MXJzZGNoYWx4NnA4dw=="
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Instagram"
                   className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center hover:bg-white/15 transition-opacity duration-200"
                 >
                   <Instagram className="w-4 h-4 text-white/80" />
+                </a>
+
+                <button
+                  aria-label="Facebook"
+                  className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center hover:bg-white/15 transition-opacity duration-200"
+                >
+                  <Facebook className="w-4 h-4 text-white/80" />
                 </button>
               </div>
             </div>
@@ -107,5 +119,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-
