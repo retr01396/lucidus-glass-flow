@@ -1,0 +1,14 @@
+{
+  "name": "lucidus-glass-flow",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "frontend": "npm --prefix frontend run dev",
+    "backend": "npm --prefix backend run dev",
+    "dev": "concurrently \"npm --prefix frontend run dev\" \"npm --prefix backend run dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
+

@@ -1,0 +1,30 @@
+/* Custom scrollbar for glass aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(220 30% 8% / 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(195 90% 50% / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(195 90% 50% / 0.5);
+}
+
+/* Selection styling */
+::selection {
+  background: hsl(195 90% 50% / 0.3);
+  color: hsl(210 40% 98%);
+}
+
+/* Focus visible styling */
+:focus-visible {
+  outline: 2px solid hsl(195 90% 50% / 0.5);
+  outline-offset: 2px;
+}
