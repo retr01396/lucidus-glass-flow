@@ -92,7 +92,7 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
 
         {/* Register Button */}
         <button 
-          onClick={handleRegister}
+        onClick={handleRegister}
           className="glow-button mb-6 attention-pulse px-10 py-3 text-sm tracking-widest font-display hover-react-strong micro-click-rebound glass-edge-light depth-layer-button"
         >
           REGISTER NOW
