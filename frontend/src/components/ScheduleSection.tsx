@@ -217,25 +217,25 @@ const ScheduleSection = () => {
 
             {/* Right: Download Button */}
             <div className="flex flex-col items-center gap-2 sm:gap-4 w-full sm:w-auto">
-              {/* <button
+              <button
                 onClick={handleDownload}
                 className="group relative overflow-hidden rounded-lg sm:rounded-2xl px-6 sm:px-10 py-3 sm:py-5 font-display font-bold text-sm sm:text-lg tracking-wider transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 bg-gradient-to-r from-primary to-accent text-white w-full sm:w-auto"
-              > */}
+              >
                 {/* Shine Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                 
                 {/* Button Content */}
-                {/* <div className="relative flex items-center justify-center gap-2 sm:gap-3">
+                <div className="relative flex items-center justify-center gap-2 sm:gap-3">
                   <Download className="w-5 sm:w-6 h-5 sm:h-6 group-hover:animate-bounce" />
                   <span className="hidden sm:inline">DOWNLOAD NOW</span>
                   <span className="sm:hidden">DOWNLOAD</span>
                   <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </div>
-              </button> */}
+              </button>
               
-              {/* <p className="text-foreground/50 text-xs text-center">
+              <p className="text-foreground/50 text-xs text-center">
                 PDF Format • 2.5 MB
-              </p> */}
+              </p>
             </div>
           </div>
         </div>
