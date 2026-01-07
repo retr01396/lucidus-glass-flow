@@ -61,6 +61,7 @@ const Footer = () => {
               <p className="uppercase text-sm tracking-[0.2em] text-foreground/60 font-bold">
                 Faculty Coordinators
               </p>
+              <p className="text-foreground/70 text-sm leading-relaxed">Renu J Kandathil - +91 94007 95632</p>
               <p className="text-foreground/70 text-sm leading-relaxed">MR. Roshan David - 9809055360</p>
               <p className="text-foreground/70 text-sm leading-relaxed">MR. John Mathew - 8086950545</p>
             </div>
