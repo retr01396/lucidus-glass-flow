@@ -14,7 +14,7 @@ const allEvents = [
   { icon: Anchor, title: "GrandLine", subtitle: "IPL Auction", prize: "₹14,500" },
   { icon: Dribbble, title: "BlueLock", subtitle: "3's Football", prize: "₹7,000" },
   { icon: Music, title: "Hibike", subtitle: "Group Dance", prize: "₹20,000" },
-  { icon: Sparkles, title: "Elyse", subtitle: "Fashion Show", prize: "₹20,000" },
+  { icon: Sparkles, title: "Elyse", subtitle: "Fashion Show", prize: "₹30,000" },
 ];
 
 const AllEventsSection = () => {

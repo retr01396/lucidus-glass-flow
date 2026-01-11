@@ -43,12 +43,6 @@ const ScheduleSection = () => {
       location: "Main Stage",
       color: "cyan"
     },
-    { 
-      time: "7:00 PM", 
-      title: "Gate Closing", 
-      location: "Main Entrance",
-      color: "orange"
-    },
   ];
 
   return (

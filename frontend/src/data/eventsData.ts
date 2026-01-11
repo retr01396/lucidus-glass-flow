@@ -3,6 +3,11 @@ export interface EventData {
   title: string;
   category: string;
   prizePool: string;
+  prizeDistribution: {
+    first: string;
+    second?: string;
+    finalists?: string;
+  };
   fee: string;
   imageTheme: string;
   registrationLink: string;
@@ -25,6 +30,9 @@ export const eventsData: EventsCollection = {
       title: "PROJECT KAIZEN",
       category: "Best Manager",
       prizePool: "₹15,000",
+      prizeDistribution: {
+        first: "₹15,000"
+      },
       fee: "₹500",
       imageTheme: "One Piece / Leadership",
       registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header",
@@ -45,6 +53,10 @@ export const eventsData: EventsCollection = {
       title: "THE SHOGUN SYNDICATE",
       category: "Best Management Team",
       prizePool: "₹14,500",
+      prizeDistribution: {
+        first: "₹10,000",
+        finalists: "₹1,500 each"
+      },
       fee: "₹250 per head",
       imageTheme: "Samurai / Teamwork",
       registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header",
@@ -65,6 +77,10 @@ export const eventsData: EventsCollection = {
       title: "THE MONEY ALCHEMIST",
       category: "Finance Game",
       prizePool: "₹14,500",
+      prizeDistribution: {
+        first: "₹10,000",
+        finalists: "₹1,500 each"
+      },
       fee: "₹250 per head",
       imageTheme: "Alchemy / Gold",
       registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header",
@@ -84,6 +100,10 @@ export const eventsData: EventsCollection = {
       title: "LOG HORIZON",
       category: "Marketing Game",
       prizePool: "₹14,500",
+      prizeDistribution: {
+        first: "₹10,000",
+        finalists: "₹1,500 each"
+      },
       fee: "₹250 per head",
       imageTheme: "Strategy / Adventure",
       registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header",
@@ -102,6 +122,10 @@ export const eventsData: EventsCollection = {
       title: "SHADOW BREAK",
       category: "Operations Game",
       prizePool: "₹14,500",
+      prizeDistribution: {
+        first: "₹10,000",
+        finalists: "₹1,500 each"
+      },
       fee: "₹250 per head",
       imageTheme: "Tactical / Dark",
       registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header",
@@ -120,6 +144,10 @@ export const eventsData: EventsCollection = {
       title: "THE BOND BUREAU",
       category: "HR Game",
       prizePool: "₹14,500",
+      prizeDistribution: {
+        first: "₹10,000",
+        finalists: "₹1,500 each"
+      },
       fee: "₹250 per head",
       imageTheme: "Connection / Spy",
       registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header",
@@ -139,7 +167,11 @@ export const eventsData: EventsCollection = {
       id: "fashion-show",
       title: "ELYSE",
       category: "Fashion Show",
-      prizePool: "₹20,000",
+      prizePool: "₹30,000",
+      prizeDistribution: {
+        first: "₹20,000",
+        second: "₹10,000"
+      },
       fee: "₹2000 per team",
       imageTheme: "Glamour / Anime Style",
       registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header",
@@ -160,6 +192,10 @@ export const eventsData: EventsCollection = {
       title: "HIBIKE",
       category: "Group Dance",
       prizePool: "₹20,000",
+      prizeDistribution: {
+        first: "₹15,000",
+        second: "₹5,000"
+      },
       fee: "₹1500 per team",
       imageTheme: "Energy / Music",
       registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header",
@@ -179,6 +215,10 @@ export const eventsData: EventsCollection = {
       title: "GRANDLINE",
       category: "IPL Auction",
       prizePool: "₹14,500",
+      prizeDistribution: {
+        first: "₹10,000",
+        finalists: "₹1,500 each"
+      },
       fee: "₹250 per head",
       imageTheme: "Cricket / Strategy",
       registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header",
@@ -198,6 +238,10 @@ export const eventsData: EventsCollection = {
       title: "BLUE LOCK",
       category: "3's Football",
       prizePool: "₹7,000",
+      prizeDistribution: {
+        first: "₹5,000",
+        second: "₹2,000"
+      },
       fee: "₹500 per team",
       imageTheme: "Sports / Intensity",
       registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header",
