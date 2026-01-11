@@ -4,10 +4,12 @@ import { useCinematicReveal } from "@/hooks/use-cinematic-reveal";
 const ScheduleSection = () => {
   const { ref, isVisible } = useCinematicReveal({ delay: 200 });
 
-  const brochureUrl = "https://drive.google.com/uc?export=download&id=1dflqzBzUiZ7zlkVS_O8BsnwPODEhe0sI";
+  // PDF download temporarily disabled - will be added later
+  const brochureUrl = ""; // Empty URL - PDF will be provided later
 
   const handleDownload = () => {
-    window.open(brochureUrl, '_blank');
+    // Disabled for now - PDF will be provided later
+    console.log("Download button clicked - PDF will be available soon");
   };
 
   const scheduleEvents = [

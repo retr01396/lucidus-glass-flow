@@ -392,23 +392,15 @@ const EventDetailModal = ({ event, isOpen, onClose }: EventDetailModalProps) => 
               {/* Prize Distribution */}
               <div>
                 <h3 className="text-foreground font-display text-sm font-semibold mb-2">Prize Distribution</h3>
-                <p>Total Prize Pool: ₹14,500</p>
+                <p className="text-foreground/80 mb-2">Total Prize Pool: ₹14,500</p>
                 <ul className="space-y-1 text-foreground/70 mt-1">
                   <li className="flex items-start gap-2">
                     <span className="text-primary">•</span>
-                    <span>First Prize: ₹10,000</span>
+                    <span>Winner: ₹10,000</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-primary">•</span>
-                    <span>Second Prize: ₹1,500</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary">•</span>
-                    <span>Third Prize: ₹1,500</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary">•</span>
-                    <span>Fourth Prize: ₹1,500</span>
+                    <span>Finalists (2nd, 3rd & 4th): ₹1,500 each</span>
                   </li>
                 </ul>
               </div>
