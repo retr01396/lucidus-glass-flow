@@ -42,6 +42,9 @@ const getEventDescription = (subtitle: string): string => {
 const EventDetailModal = ({ event, isOpen, onClose }: EventDetailModalProps) => {
   if (!isOpen || !event) return null;
 
+  // Debug: Log which event is being opened
+  console.log("🎯 Event opened:", event.title, "| Subtitle:", event.subtitle);
+
   const isProjectKaizen = event.subtitle === "Best Manager";
   const isHibike = event.subtitle === "Group Dance";
   const isLogHorizon = event.subtitle === "Marketing Game";
@@ -52,6 +55,19 @@ const EventDetailModal = ({ event, isOpen, onClose }: EventDetailModalProps) => 
   const isHRGame = event.subtitle === "HR Game";
   const isFashionShow = event.subtitle === "Fashion Show";
   const isOperationsGame = event.subtitle === "Operations Game";
+  
+  // Debug: Log which condition is true
+  console.log("🔍 Event type checks:", {
+    isFinanceGame,
+    isHRGame,
+    isFashionShow,
+    isOperationsGame,
+    isBMT,
+    isLogHorizon,
+    isGrandLine,
+    isProjectKaizen,
+    isHibike
+  });
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -929,6 +945,22 @@ const EventDetailModal = ({ event, isOpen, onClose }: EventDetailModalProps) => 
                 <p className="text-foreground/70 text-xs mt-1">Minimum 2 members must carry laptops with stable internet</p>
               </div>
 
+              {/* Prize Distribution */}
+              <div className="bg-cyan-500/10 border-2 border-cyan-500 rounded-lg p-4">
+                <h3 className="text-cyan-400 font-display text-lg font-bold mb-2">💰 PRIZE DISTRIBUTION 💰</h3>
+                <p className="text-cyan-300 font-bold text-base mb-2">Total Prize Pool: ₹14,500</p>
+                <ul className="space-y-2 text-foreground text-sm mt-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-cyan-400 font-bold">🏆</span>
+                    <span className="font-semibold">1st Prize: ₹10,000</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-cyan-400 font-bold">🥈</span>
+                    <span className="font-semibold">Finalists: ₹1,500 (Per team)</span>
+                  </li>
+                </ul>
+              </div>
+
               {/* Event Guidelines */}
               <div>
                 <h3 className="text-foreground font-display text-sm font-semibold mb-2">Event Guidelines</h3>
@@ -985,6 +1017,22 @@ const EventDetailModal = ({ event, isOpen, onClose }: EventDetailModalProps) => 
                 <h3 className="text-foreground font-display text-sm font-semibold mb-1">Team Requirements</h3>
                 <p>Each team shall consist of 4 members only</p>
                 <p className="text-foreground/70 text-xs mt-1">Open to UG and PG students</p>
+              </div>
+
+              {/* Prize Distribution */}
+              <div>
+                <h3 className="text-foreground font-display text-sm font-semibold mb-2">Prize Distribution</h3>
+                <p className="text-foreground/80 mb-2">Total Prize Pool: ₹14,500</p>
+                <ul className="space-y-1 text-foreground/70 mt-1">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary">•</span>
+                    <span>1st Prize: ₹10,000</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary">•</span>
+                    <span>Finalists: ₹1,500 (Per team)</span>
+                  </li>
+                </ul>
               </div>
 
               {/* Event Guidelines */}
@@ -1077,14 +1125,15 @@ const EventDetailModal = ({ event, isOpen, onClose }: EventDetailModalProps) => 
               {/* Prize Distribution */}
               <div>
                 <h3 className="text-foreground font-display text-sm font-semibold mb-2">Prize Distribution</h3>
-                <ul className="space-y-1 text-foreground/70">
+                <p className="text-foreground/80 mb-2">Total Prize Pool: ₹30,000</p>
+                <ul className="space-y-1 text-foreground/70 mt-1">
                   <li className="flex items-start gap-2">
                     <span className="text-primary">•</span>
-                    <span>Winner: ₹20,000</span>
+                    <span>1st Prize: ₹20,000</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-primary">•</span>
-                    <span>Runner-up: ₹10,000</span>
+                    <span>2nd Prize: ₹10,000</span>
                   </li>
                 </ul>
               </div>
@@ -1203,14 +1252,15 @@ const EventDetailModal = ({ event, isOpen, onClose }: EventDetailModalProps) => 
               {/* Prize Distribution */}
               <div>
                 <h3 className="text-foreground font-display text-sm font-semibold mb-2">Prize Distribution</h3>
-                <ul className="space-y-1 text-foreground/70">
+                <p className="text-foreground/80 mb-2">Total Prize Pool: ₹14,500</p>
+                <ul className="space-y-1 text-foreground/70 mt-1">
                   <li className="flex items-start gap-2">
                     <span className="text-primary">•</span>
-                    <span>First Prize: ₹10,000</span>
+                    <span>1st Prize: ₹10,000</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-primary">•</span>
-                    <span>Finalist: ₹1,500</span>
+                    <span>Finalists: ₹1,500 (Per team)</span>
                   </li>
                 </ul>
               </div>

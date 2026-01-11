@@ -138,6 +138,38 @@ const EventCard = ({ event, type }: EventCardProps) => {
             </div>
           </div>
 
+          {/* Prize Distribution */}
+          <div className={`mb-6 rounded-xl border-2 p-4 ${type === "management" ? "border-amber-500/50 bg-gradient-to-br from-amber-900/20 to-orange-900/20" : "border-cyan-500/50 bg-gradient-to-br from-cyan-900/20 to-blue-900/20"}`}>
+            <h3 className={`mb-4 font-serif text-xl font-bold ${accentColor} flex items-center gap-2`}>
+              <Trophy className="w-6 h-6" />
+              💰 Prize Distribution
+            </h3>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-white/80 font-semibold flex items-center gap-2">
+                  🏆 1st Prize
+                </span>
+                <span className={`text-xl font-bold ${accentColor}`}>{event.prizeDistribution.first}</span>
+              </div>
+              {event.prizeDistribution.second && (
+                <div className="flex items-center justify-between">
+                  <span className="text-white/80 font-semibold flex items-center gap-2">
+                    🥈 2nd Prize
+                  </span>
+                  <span className={`text-xl font-bold ${accentColor}`}>{event.prizeDistribution.second}</span>
+                </div>
+              )}
+              {event.prizeDistribution.finalists && (
+                <div className="flex items-center justify-between">
+                  <span className="text-white/80 font-semibold flex items-center gap-2">
+                    🥈 Finalists
+                  </span>
+                  <span className={`text-xl font-bold ${accentColor}`}>{event.prizeDistribution.finalists}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* Guidelines */}
           <div className="mb-6">
             <h3 className={`mb-4 font-serif text-2xl font-bold ${accentColor} flex items-center gap-2`}>
