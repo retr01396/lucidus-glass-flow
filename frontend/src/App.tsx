@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import EventsPage from "./pages/EventsPage";
 import IntroSequence from "@/components/IntroSequence";
 import WaterBackground from "@/components/WaterBackground";
 
@@ -47,6 +48,7 @@ const App = () => {
           path="/"
           element={<Index stage={stage} />}
         />
+        <Route path="/events" element={<EventsPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

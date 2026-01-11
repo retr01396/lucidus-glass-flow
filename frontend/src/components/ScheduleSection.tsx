@@ -1,14 +1,12 @@
-import { Download, Calendar, MapPin, Clock, ArrowRight, Users, Award, Music, DoorClosed, Sparkles } from "lucide-react";
+import { Download, Calendar, MapPin, Clock } from "lucide-react";
 import { useCinematicReveal } from "@/hooks/use-cinematic-reveal";
 
 const ScheduleSection = () => {
-  const { ref: scheduleRef, isVisible: scheduleVisible } = useCinematicReveal({ delay: 300 });
+  const { ref, isVisible } = useCinematicReveal({ delay: 200 });
 
-  // Google Drive direct download link
   const brochureUrl = "https://drive.google.com/uc?export=download&id=1dflqzBzUiZ7zlkVS_O8BsnwPODEhe0sI";
 
   const handleDownload = () => {
-    // Open the download link in a new tab
     window.open(brochureUrl, '_blank');
   };
 
@@ -17,225 +15,135 @@ const ScheduleSection = () => {
       time: "8:30 AM", 
       title: "Registration", 
       location: "Main Hall",
-      description: "Participant check-in and welcome kit distribution",
-      icon: Users,
-    },
-    { 
-      time: "9:30 AM", 
-      title: "Inauguration", 
-      location: "Main Auditorium",
-      description: "Official opening ceremony with keynote speakers",
-      icon: Sparkles,
+      color: "cyan"
     },
     { 
       time: "10:30 AM", 
       title: "Management Events", 
       location: "Conference Hall",
-      description: "Business strategy sessions and workshops",
-      icon: Users,
+      color: "orange"
     },
     { 
       time: "12:30 PM", 
       title: "Cultural Events", 
       location: "Main Stage",
-      description: "Performances, exhibitions, and cultural activities",
-      icon: Music,
+      color: "cyan"
     },
     { 
       time: "4:00 PM", 
       title: "Valedictory / Business Excellence Awards", 
       location: "Main Auditorium",
-      description: "Closing ceremony and award presentations",
-      icon: Award,
+      color: "orange"
     },
     { 
       time: "5:30 PM", 
       title: "Entertainment Programme", 
       location: "Main Stage",
-      description: "Live performances and entertainment shows",
-      icon: Music,
+      color: "cyan"
     },
     { 
       time: "7:00 PM", 
       title: "Gate Closing", 
       location: "Main Entrance",
-      description: "Event conclusion and venue closure",
-      icon: DoorClosed,
+      color: "orange"
     },
   ];
 
   return (
     <div 
-      ref={scheduleRef}
-      className={`glass-panel rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-12 w-full subtle-glow-shift deep-ambient-float glass-edge-light hover-react-subtle depth-layer-panel ${
-        scheduleVisible ? 'reveal-visible' : 'reveal-hidden'
+      ref={ref}
+      id="schedule"
+      className={`max-w-6xl mx-auto mt-4 sm:mt-6 md:mt-8 px-3 sm:px-4 transition-all duration-1000 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
       }`}
     >
-      {/* Header Section */}
-      <div className="text-center mb-8 sm:mb-12 md:mb-16">
-        <div className="inline-flex items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6 flex-wrap px-2">
-          <div className="hidden sm:flex w-12 sm:w-16 h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-primary"></div>
-          <div className="flex items-center justify-center gap-2 sm:gap-3">
-            <Calendar className="w-6 sm:w-8 h-6 sm:h-8 text-primary flex-shrink-0 animate-pulse" />
-            <h3 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-foreground tracking-wider bg-clip-text ">
-              EVENT SCHEDULE
-            </h3>
-            <Calendar className="w-6 sm:w-8 h-6 sm:h-8 text-primary flex-shrink-0 animate-pulse" />
-          </div>
-          <div className="hidden sm:flex w-12 sm:w-16 h-[2px] bg-gradient-to-l from-transparent via-primary/50 to-primary"></div>
-        </div>
-        <div className="space-y-2 sm:space-y-3">
-          <div className="flex items-center justify-center gap-2 text-foreground/80 text-sm sm:text-base font-body tracking-wide">
-            <Clock className="w-4 sm:w-5 h-4 sm:h-5 text-primary flex-shrink-0" />
-            <span className="font-semibold text-foreground">January 23, 2026</span>
-          </div>
-          <div className="flex items-center justify-center gap-2 text-foreground/70 text-xs sm:text-sm font-body tracking-wide">
-            <MapPin className="w-4 sm:w-5 h-4 sm:h-5 text-primary flex-shrink-0" />
-            <span>Christ College of Engineering</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Timeline Container */}
-      <div className="max-w-5xl mx-auto mb-8 sm:mb-12 md:mb-16">
-        <div className="relative">
-          {/* Vertical Timeline Line */}
-          <div className="absolute left-0 sm:left-3 md:left-12 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary via-primary/50 to-transparent hidden sm:block"></div>
-
-          {/* Events List */}
-          <div className="space-y-4 sm:space-y-6 md:space-y-8">
-            {scheduleEvents.map((event, index) => {
-              const IconComponent = event.icon;
-              return (
-                <div 
-                  key={index} 
-                  className="group relative"
-                  style={{ 
-                    animationDelay: `${index * 80}ms`,
-                    animation: 'fadeIn 0.5s ease-out forwards'
-                  }}
-                >
-                  {/* Timeline Dot */}
-                  <div className="absolute left-0 sm:left-3 md:left-12 -translate-x-1/2 w-5 sm:w-6 h-5 sm:h-6 rounded-full bg-primary border-3 sm:border-4 border-background shadow-lg shadow-primary/50 hidden sm:flex items-center justify-center group-hover:scale-125 transition-transform duration-300 z-10"></div>
-
-                  {/* Event Card */}
-                  <div className="sm:ml-6 md:ml-24 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-sm rounded-xl sm:rounded-2xl border-2 border-foreground/10 hover:border-primary/30 transition-all duration-500 overflow-hidden group-hover:shadow-xl group-hover:shadow-primary/10 group-hover:-translate-y-1">
-                    <div className="p-3 sm:p-6 md:p-8">
-                      <div className="flex flex-col lg:flex-row lg:items-center gap-3 sm:gap-6">
-                        {/* Left: Icon & Time */}
-                        <div className="flex items-center gap-2 sm:gap-6 lg:w-64 flex-shrink-0">
-                          {/* Icon */}
-                          <div className="w-12 sm:w-16 h-12 sm:h-16 rounded-lg sm:rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 border-2 border-primary/30 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 flex-shrink-0">
-                            <IconComponent className="w-6 sm:w-8 h-6 sm:h-8 text-primary" />
-                          </div>
-
-                          {/* Time */}
-                          <div className="flex flex-col">
-                            <span className="text-xs text-foreground/50 font-medium uppercase tracking-wider mb-1">Time</span>
-                            <div className="flex items-center gap-1 sm:gap-2">
-                              <Clock className="w-3 sm:w-4 h-3 sm:h-4 text-primary flex-shrink-0" />
-                              <span className="text-lg sm:text-xl font-bold text-foreground font-display">
-                                {event.time}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Divider */}
-                        <div className="hidden lg:block w-[2px] h-16 bg-gradient-to-b from-transparent via-foreground/20 to-transparent"></div>
-
-                        {/* Right: Content */}
-                        <div className="flex-1 space-y-2 sm:space-y-3">
-                          {/* Title */}
-                          <h4 className="text-lg sm:text-2xl md:text-3xl font-bold text-foreground font-display tracking-wide group-hover:text-primary transition-colors duration-300">
-                            {event.title}
-                          </h4>
-
-                          {/* Description */}
-                          <p className="text-foreground/60 text-xs sm:text-sm md:text-base leading-relaxed">
-                            {event.description}
-                          </p>
-
-                          {/* Location */}
-                          <div className="flex items-center gap-1 sm:gap-2 text-foreground/70">
-                            <MapPin className="w-3 sm:w-4 h-3 sm:h-4 text-primary flex-shrink-0" />
-                            <span className="text-xs sm:text-sm font-medium">{event.location}</span>
-                          </div>
-                        </div>
-
-                        {/* Arrow Indicator */}
-                        <div className="hidden lg:flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 border border-primary/30 group-hover:bg-primary group-hover:scale-110 transition-all duration-300 flex-shrink-0">
-                          <ArrowRight className="w-5 h-5 text-primary group-hover:text-white transition-colors duration-300" />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Bottom Accent Line */}
-                    <div className="h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent group-hover:via-primary transition-all duration-500"></div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* Download Brochure Section */}
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl max-w-4xl mx-auto">
-        {/* Background with subtle gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/10 to-primary/10"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_70%)]"></div>
+      <div className="relative bg-black/40 backdrop-blur-xl border-2 border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_0_60px_rgba(0,200,255,0.15)]">
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/5 via-transparent to-orange-600/5 animate-gradient-shift pointer-events-none rounded-3xl" />
         
-        {/* Content */}
-        <div className="relative glass-panel p-4 sm:p-10 md:p-14 border-2 border-primary/20">
-          <div className="flex flex-col lg:flex-row items-center gap-4 sm:gap-8 lg:gap-12">
-            {/* Left: Icon & Info */}
-            <div className="flex-1 text-center lg:text-left space-y-3 sm:space-y-4">
-              <div className="inline-flex lg:flex items-center justify-center lg:justify-start gap-2 sm:gap-3 mb-2">
-                <div className="w-10 sm:w-14 h-10 sm:h-14 rounded-lg sm:rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30 flex-shrink-0">
-                  <Download className="w-5 sm:w-7 h-5 sm:h-7 text-white" />
-                </div>
-                <h4 className="font-display text-xl sm:text-2xl md:text-3xl font-black text-foreground tracking-wider">
-                  Event Brochure
-                </h4>
-              </div>
-              
-              <p className="text-foreground/70 text-xs sm:text-base md:text-lg leading-relaxed max-w-xl px-2 sm:px-0">
-                Download the complete event guide with detailed schedules, venue maps, speaker profiles, and essential information for attendees.
-              </p>
+        <div className={`relative z-10 text-center mb-8 ${isVisible ? 'animate-fade-in-down' : 'opacity-0'}`}>
+          <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-cyan-600/20 to-orange-600/20 border border-white/10 mb-4 shadow-[0_0_30px_rgba(0,200,255,0.3)]">
+            <Calendar className="w-8 h-8 md:w-10 md:h-10 text-cyan-500" />
+          </div>
+          <h2 className="font-display text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-orange-400 mb-3 tracking-wide">
+            EVENT SCHEDULE
+          </h2>
+          <div className="h-1 w-24 bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto mb-4" />
+          <p className="text-foreground/70 text-sm md:text-base max-w-2xl mx-auto">
+            Mark your calendar for these exciting events
+          </p>
+        </div>
 
-              {/* Features List */}
-              <div className="grid grid-cols-2 gap-2 sm:gap-3 pt-2 px-2 sm:px-0">
-                {['Full Schedule', 'Venue Maps', 'Speaker Info', 'Guidelines'].map((item, i) => (
-                  <div key={i} className="flex items-center gap-2 text-foreground/60 text-xs sm:text-sm">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></div>
-                    <span>{item}</span>
+        <div className="relative z-10 grid md:grid-cols-2 gap-4 md:gap-6 mb-8">
+          {scheduleEvents.map((event, index) => {
+            const isCyan = event.color === "cyan";
+            const isLeftColumn = index % 2 === 0;
+            return (
+              <div 
+                key={index}
+                className={`bg-black/60 backdrop-blur-sm border-2 ${
+                  isCyan ? 'border-cyan-600/30 hover:border-cyan-500/40' : 'border-orange-600/30 hover:border-orange-500/40'
+                } rounded-2xl p-5 transition-all duration-300 ${
+                  isCyan ? 'hover:shadow-[0_0_30px_rgba(0,200,255,0.15)]' : 'hover:shadow-[0_0_30px_rgba(255,100,0,0.15)]'
+                } hover:scale-[1.02] cursor-pointer group ${
+                  isVisible ? (isLeftColumn ? 'animate-fade-in-left' : 'animate-fade-in-right') : 'opacity-0'
+                } delay-${(index + 2) * 100}`}
+              >
+                <div className="flex items-start gap-4">
+                  <div className={`w-16 h-16 rounded-xl ${
+                    isCyan ? 'bg-gradient-to-br from-cyan-600/30 to-blue-600/30 border-cyan-500/30' : 'bg-gradient-to-br from-orange-600/30 to-red-600/30 border-orange-500/30'
+                  } border-2 flex flex-col items-center justify-center flex-shrink-0`}>
+                    <Clock className={`w-5 h-5 ${isCyan ? 'text-cyan-400' : 'text-orange-400'} mb-1`} />
+                    <span className={`text-xs font-bold font-display ${isCyan ? 'text-cyan-400' : 'text-orange-400'} text-center leading-tight`}>
+                      {event.time}
+                    </span>
                   </div>
-                ))}
-              </div>
-            </div>
 
-            {/* Right: Download Button */}
-            <div className="flex flex-col items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                  <div className="flex-1 min-w-0">
+                    <h4 className={`font-display text-base md:text-lg font-bold mb-2 tracking-wide ${
+                      isCyan ? 'text-cyan-400' : 'text-orange-400'
+                    } group-hover:scale-105 transition-transform duration-200`}>
+                      {event.title}
+                    </h4>
+                    <div className="flex items-center gap-2 text-foreground/70 text-sm">
+                      <MapPin className="w-4 h-4 flex-shrink-0" />
+                      <span className="truncate">{event.location}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className={`relative z-10 overflow-hidden rounded-2xl ${isVisible ? 'animate-scale-in delay-800' : 'opacity-0'}`}>
+          <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/10 via-orange-600/10 to-cyan-600/10 animate-gradient-shift" />
+          
+          <div className="relative bg-black/60 backdrop-blur-sm border-2 border-cyan-600/30 rounded-2xl p-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex-1 text-center md:text-left">
+                <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
+                  <Download className="w-6 h-6 text-cyan-400" />
+                  <h4 className="font-display text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-orange-400 tracking-wider">
+                    GET THE COMPLETE SCHEDULE
+                  </h4>
+                </div>
+                <p className="text-foreground/70 text-sm">
+                  Download our detailed brochure with all event information, timings, and venue details
+                </p>
+              </div>
+
               <button
                 onClick={handleDownload}
-                className="group relative overflow-hidden rounded-lg sm:rounded-2xl px-6 sm:px-10 py-3 sm:py-5 font-display font-bold text-sm sm:text-lg tracking-wider transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 bg-gradient-to-r from-primary to-accent text-white w-full sm:w-auto"
+                className="group relative overflow-hidden rounded-full px-8 py-4 font-display font-bold text-base tracking-wider transition-all duration-300 hover:scale-110 shadow-[0_0_20px_rgba(0,200,255,0.3)] hover:shadow-[0_0_40px_rgba(0,200,255,0.5)]"
               >
-                {/* Shine Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-orange-600 to-cyan-600 bg-[length:200%_100%] animate-gradient-shift" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
                 
-                {/* Button Content */}
-                <div className="relative flex items-center justify-center gap-2 sm:gap-3">
-                  <Download className="w-5 sm:w-6 h-5 sm:h-6 group-hover:animate-bounce" />
-                  <span className="hidden sm:inline">DOWNLOAD NOW</span>
-                  <span className="sm:hidden">DOWNLOAD</span>
-                  <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                <div className="relative flex items-center gap-3 text-black">
+                  <Download className="w-5 h-5 group-hover:animate-bounce" />
+                  <span className="whitespace-nowrap">DOWNLOAD BROCHURE</span>
                 </div>
               </button>
-              
-              <p className="text-foreground/50 text-xs text-center">
-                PDF Format • 2.5 MB
-              </p>
             </div>
           </div>
         </div>
@@ -245,4 +153,3 @@ const ScheduleSection = () => {
 };
 
 export default ScheduleSection;
-

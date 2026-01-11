@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Play } from "lucide-react";
+import { Play, Calendar, Trophy, Swords } from "lucide-react";
 import lucidusLogo from "@/assets/lucidus-logo.png";
 import { useCinematicReveal } from "@/hooks/use-cinematic-reveal";
 
@@ -28,7 +28,6 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
 
   useEffect(() => {
     const calculateTimeRemaining = () => {
-      // Note: Verify if the date should be the 23rd or 24th with your team
       const eventDate = new Date("2026-01-24T00:00:00").getTime();
       const now = new Date().getTime();
       const difference = eventDate - now;
@@ -69,77 +68,114 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
       <div 
         ref={heroRef}
         id="home"
-        className={`glass-panel rounded-3xl p-8 w-full text-center relative overflow-hidden glass-edge-light hover-react-subtle depth-layer-panel ${
-          heroVisible ? 'reveal-visible' : 'reveal-hidden'
+        className={`relative overflow-hidden rounded-3xl transition-all duration-1000 ${
+          heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
-        <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent pointer-events-none" />
-        
-        <div className="mb-4 relative">
-          <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full" />
-          <img 
-            src={lucidusLogo} 
-            alt="Lucidus Phoenix" 
-            className="w-44 h-44 md:w-[216px] md:h-[216px] mx-auto rounded-full object-cover relative z-10 border-2 border-foreground/20 transition-all duration-300 ease-out hover:scale-105"
-          />
-        </div>
-
-        <h1 className="font-display text-3xl md:text-4xl font-black text-foreground mb-1 tracking-wider text-glow-cyan">
-          LUCIDUS 2026
-        </h1>
-        <h2 className="font-display text-xl md:text-2xl font-bold text-foreground/90 mb-3 tracking-wide">
-          National Level Management Fest
-        </h2>
-        <p className="text-foreground/60 text-base mb-6 font-body tracking-wide">
-          Christ College of Engineering, Irinjalakuda
-        </p>
-
-        <button 
-          onClick={handleRegister}
-          className="glow-button mb-6 attention-pulse px-10 py-3 text-sm tracking-widest font-display hover-react-strong micro-click-rebound glass-edge-light depth-layer-button"
-        >
-          REGISTER NOW
-        </button>
-
-        <div className="flex items-center justify-center gap-1.5 mb-6">
-          {[
-            { value: timeRemaining.days, label: "D" },
-            { value: timeRemaining.hours, label: "H" },
-            { value: timeRemaining.minutes, label: "M" },
-            { value: timeRemaining.seconds, label: "S" },
-          ].map((item, index) => (
-            <div key={index} className="flex items-center">
-              <div 
-                className="countdown-box px-4 py-2 transition-all duration-500 hover:scale-110 hover:shadow-glow-cyan"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <span className="font-display text-xl font-bold text-foreground tabular-nums">
-                  {item.value}
-                </span>
-                <span className="block text-[10px] text-foreground/50 font-display tracking-wider">
-                  {item.label}
-                </span>
-              </div>
-              {index < 3 && <span className="text-foreground/40 text-xl mx-1 font-display">:</span>}
+        {/* Premium Glass Panel with Gradient Border */}
+        <div className="relative bg-black/40 backdrop-blur-xl border-2 border-white/10 rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 shadow-[0_0_60px_rgba(0,200,255,0.15)] mt-6 sm:mt-8">
+          {/* Animated Gradient Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/10 via-transparent to-orange-600/10 animate-gradient-shift pointer-events-none rounded-3xl" />
+          
+          {/* Sword Divider Top - Hidden on small mobile */}
+          <div className="hidden sm:block absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+            <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-full p-2 sm:p-3 shadow-[0_0_30px_rgba(255,100,0,0.6)] ring-4 ring-black/50">
+              <Swords className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
-          ))}
-        </div>
+          </div>
 
-        <div className="grid grid-cols-3 gap-3">
-          {["DEAN'S MESSAGE", "FEST THEME", "WATCH TEASER"].map((title, index) => (
-            <div 
-              key={index} 
-              className="video-card py-5 group parallax-card"
-              style={{ animationDelay: `${index * 100}ms` }}
+          <div className="relative z-10 text-center space-y-4 sm:space-y-6">
+            {/* Logo with Premium Glow */}
+            <div className="relative inline-block animate-float-3d">
+              {/* Glow effect - reduced on mobile */}
+              <div className="hidden sm:block absolute inset-0 bg-cyan-500/20 blur-3xl rounded-full animate-pulse-slow" />
+              <div className="relative">
+                <img 
+                  src={lucidusLogo} 
+                  alt="Lucidus Phoenix" 
+                  className="w-32 h-32 sm:w-40 sm:h-40 md:w-52 md:h-52 mx-auto rounded-full object-cover border-2 sm:border-4 border-white/20 shadow-[0_0_50px_rgba(0,200,255,0.3)] transition-all duration-500 hover:scale-105 hover:border-cyan-500/50 hover:shadow-[0_0_80px_rgba(0,200,255,0.5)]"
+                />
+                {/* Corner Accents - smaller on mobile */}
+                <div className="absolute -top-1 sm:-top-2 -left-1 sm:-left-2 w-6 h-6 sm:w-8 sm:h-8 border-t-2 border-l-2 border-cyan-500/60 rounded-tl-lg" />
+                <div className="absolute -top-1 sm:-top-2 -right-1 sm:-right-2 w-6 h-6 sm:w-8 sm:h-8 border-t-2 border-r-2 border-orange-500/60 rounded-tr-lg" />
+                <div className="absolute -bottom-1 sm:-bottom-2 -left-1 sm:-left-2 w-6 h-6 sm:w-8 sm:h-8 border-b-2 border-l-2 border-orange-500/60 rounded-bl-lg" />
+                <div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-cyan-500/60 rounded-br-lg" />
+              </div>
+            </div>
+
+            {/* Title Section - Mobile optimized */}
+            <div className="space-y-2 sm:space-y-3">
+              <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-orange-400 mb-2 tracking-wider animate-gradient-text">
+                LUCIDUS 2026
+              </h1>
+              <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
+                <div className="h-[2px] w-12 sm:w-16 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+                <Trophy className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500" />
+                <div className="h-[2px] w-12 sm:w-16 bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
+              </div>
+              <h2 className="font-display text-base sm:text-xl md:text-2xl font-bold text-foreground/90 tracking-wide px-2">
+                National Level Management Fest
+              </h2>
+              <p className="text-foreground/60 text-xs sm:text-sm md:text-base font-body tracking-wide flex items-center justify-center gap-2 px-2">
+                <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-cyan-500 flex-shrink-0" />
+                <span className="text-center">Christ College of Engineering, Irinjalakuda</span>
+              </p>
+            </div>
+
+            {/* CTA Button - Mobile optimized */}
+            <button 
+              onClick={handleRegister}
+              className="relative group px-6 sm:px-8 md:px-10 py-3 sm:py-4 font-display font-bold text-xs sm:text-sm tracking-widest rounded-full bg-gradient-to-r from-red-600 via-orange-600 to-red-600 text-white shadow-[0_0_30px_rgba(255,100,0,0.5)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_rgba(255,100,0,0.8)] animate-pulse-border"
             >
-              <div className="play-icon group-hover:scale-110 group-hover:shadow-glow-cyan transition-all duration-500">
-                <Play className="w-5 h-5 text-foreground/70 fill-foreground/10 ml-0.5 transition-transform duration-300 group-hover:scale-110" />
-              </div>
-              <span className="text-foreground/70 text-[10px] font-semibold text-center font-display tracking-wide mt-1 transition-all duration-300 group-hover:text-foreground">
-                {title}
-              </span>
+              <span className="relative z-10">REGISTER NOW</span>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-600 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
+            </button>
+
+            {/* Countdown Timer - Mobile optimized */}
+            <div className="flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3">
+              {[
+                { value: timeRemaining.days, label: "DAYS" },
+                { value: timeRemaining.hours, label: "HRS" },
+                { value: timeRemaining.minutes, label: "MIN" },
+                { value: timeRemaining.seconds, label: "SEC" },
+              ].map((item, index) => (
+                <div key={index} className="flex items-center">
+                  <div 
+                    className="relative bg-black/60 backdrop-blur-sm border border-white/20 rounded-lg sm:rounded-xl px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(0,200,255,0.3)] group"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <span className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-cyan-400 to-cyan-600 tabular-nums">
+                      {item.value}
+                    </span>
+                    <span className="block text-[8px] sm:text-[9px] md:text-[10px] text-foreground/50 font-display tracking-widest mt-0.5 sm:mt-1">
+                      {item.label}
+                    </span>
+                  </div>
+                  {index < 3 && <span className="text-cyan-500/40 text-2xl mx-1 font-display">:</span>}
+                </div>
+              ))}
             </div>
-          ))}
+
+            {/* Video Cards */}
+            <div className="grid grid-cols-3 gap-3 md:gap-4 pt-4">
+              {["DEAN'S MESSAGE", "FEST THEME", "WATCH TEASER"].map((title, index) => (
+                <div 
+                  key={index} 
+                  className="relative group cursor-pointer"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="bg-black/60 backdrop-blur-sm border border-white/10 rounded-xl p-4 md:p-5 transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(0,200,255,0.2)] hover:-translate-y-1">
+                    <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-2 rounded-full bg-gradient-to-br from-cyan-600/20 to-orange-600/20 flex items-center justify-center border border-white/10 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(0,200,255,0.4)]">
+                      <Play className="w-4 h-4 md:w-5 md:h-5 text-cyan-400 fill-cyan-400/20 ml-0.5" />
+                    </div>
+                    <span className="text-foreground/70 text-[9px] md:text-[10px] font-semibold text-center font-display tracking-wide block transition-all duration-300 group-hover:text-cyan-400">
+                      {title}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
