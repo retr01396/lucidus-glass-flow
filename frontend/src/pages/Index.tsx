@@ -3,7 +3,7 @@ import cinematicBg from "@/assets/cinematic-bg.jpg";
 import GlassNavigation from "@/components/GlassNavigation";
 import HeroSection from "@/components/HeroSection";
 import ScheduleSection from "@/components/ScheduleSection";
-import AllEventsSection from "@/components/AllEventsSection";
+import EventsSection from "@/components/EventsSection";
 import AboutSection from "@/components/AboutSection";
 import GeneralGuidelinesSection from "@/components/GeneralGuidelinesSection";
 import LiquidBackground from "@/components/LiquidBackground";
@@ -56,40 +56,33 @@ const Index = ({ stage }: IndexProps) => {
         />
       </div>
 
-      {/* Main content - smooth fade in */}
+      {/* Main content - smooth fade in with mobile optimizations */}
       <div
-        className={`relative z-10 min-h-screen p-4 md:p-6 transition-all duration-700 ease-out ${
+        className={`relative z-10 min-h-screen pt-16 md:pt-24 p-3 sm:p-4 md:p-6 transition-all duration-700 ease-out ${
           isSettled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}
       >
-        {/* Header label */}
-        <div className="text-center mb-4">
-          <span className="text-foreground/60 text-sm font-display tracking-widest">
-            HOME PAGE
-          </span>
-        </div>
-
         {/* Navigation */}
         <GlassNavigation />
 
-        {/* Hero / Logo Section - Full Width */}
-        <div className="max-w-5xl mx-auto">
+        {/* Hero / Logo Section - Full Width with mobile spacing */}
+        <div className="max-w-5xl mx-auto mt-6 sm:mt-8 md:mt-12">
           <HeroSection stage={stage} />
         </div>
 
-        {/* Schedule Section - Full Width */}
-        <div className="mt-6 max-w-7xl mx-auto">
+        {/* Schedule Section - Full Width with mobile spacing */}
+        <div className="mt-4 sm:mt-6 md:mt-6 max-w-7xl mx-auto">
           <ScheduleSection />
         </div>
 
-        {/* About Lucidus Section */}
-        <div className="mt-8 max-w-5xl mx-auto">
+        {/* About Lucidus Section with mobile spacing */}
+        <div className="mt-6 sm:mt-8 md:mt-8 max-w-5xl mx-auto">
           <AboutSection />
         </div>
 
-        {/* Events Section */}
-        <div className="mt-8 max-w-6xl mx-auto">
-          <AllEventsSection />
+        {/* Events Section with mobile spacing */}
+        <div className="mt-6 sm:mt-8 md:mt-8 max-w-7xl mx-auto">
+          <EventsSection />
         </div>
 
         {/* General Guidelines Section */}

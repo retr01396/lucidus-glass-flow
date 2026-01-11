@@ -18,11 +18,20 @@ export const useCinematicReveal = (options: RevealOptions = {}) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), delay);
+          setTimeout(() => {
+            setIsVisible(true);
+            // Remove will-change after animation completes (600ms max duration + delay)
+            setTimeout(() => {
+              const animatedElements = element.querySelectorAll('[class*="animate-"]');
+              animatedElements.forEach((el) => {
+                el.classList.add('animation-complete');
+              });
+            }, 1000);
+          }, delay);
           observer.unobserve(element);
         }
       },
-      { threshold }
+      { threshold, rootMargin: '50px' } // Start animation slightly before element is visible
     );
 
     observer.observe(element);

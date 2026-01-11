@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Coins, Swords, Target, Cog, Users, Trophy, Music, Sparkles, Video, Anchor, Dribbble } from "lucide-react";
+import { Coins, Swords, Target, Cog, Users, Trophy, Music, Sparkles, Anchor, Dribbble } from "lucide-react";
+import { Link } from "react-router-dom";
 import EventDetailModal from "./EventDetailModal";
 import { useCinematicReveal, useFocusSpotlight } from "@/hooks/use-cinematic-reveal";
 
@@ -11,10 +12,9 @@ const allEvents = [
   { icon: Users, title: "The Bond Bureau", subtitle: "HR Game", prize: "₹14,500" },
   { icon: Trophy, title: "Project Kaizen", subtitle: "Best Manager", prize: "₹15,000" },
   { icon: Anchor, title: "GrandLine", subtitle: "IPL Auction", prize: "₹14,500" },
-  { icon: Dribbble, title: "BlueLock", subtitle: "3s Football Game", prize: "₹7,000" },
+  { icon: Dribbble, title: "BlueLock", subtitle: "3's Football", prize: "₹7,000" },
   { icon: Music, title: "Hibike", subtitle: "Group Dance", prize: "₹20,000" },
-  { icon: Sparkles, title: "Oshare Festival", subtitle: "Fashion Show", prize: "₹20,000" },
-  { icon: Video, title: "Mirai Motion", subtitle: "Reel Making", prize: "₹3,000" },
+  { icon: Sparkles, title: "Elyse", subtitle: "Fashion Show", prize: "₹20,000" },
 ];
 
 const AllEventsSection = () => {
@@ -31,7 +31,7 @@ const AllEventsSection = () => {
           isVisible ? 'reveal-visible' : 'reveal-hidden'
         }`}
       >
-        <h2 className="font-display text-xl font-bold text-foreground mb-6 tracking-wide text-glow-cyan text-center">
+        <h2 className={`font-display text-xl font-bold text-foreground mb-6 tracking-wide text-glow-cyan text-center ${isVisible ? 'animate-fade-in-down' : 'opacity-0'}`}>
           ALL EVENTS
         </h2>
         
@@ -39,10 +39,9 @@ const AllEventsSection = () => {
           {allEvents.map((event, index) => (
             <div 
               key={index} 
-              className="glass-card-fire group cursor-pointer parallax-card hover-react-medium glass-edge-light"
+              className={`glass-card-fire group cursor-pointer parallax-card hover-react-medium glass-edge-light ${isVisible ? 'animate-flip-in' : 'opacity-0'} delay-${(index + 2) * 100}`}
               style={{
                 ...getCardStyle(index),
-                animationDelay: `${index * 80}ms`,
               }}
               onMouseEnter={() => setFocus(index)}
               onMouseLeave={() => setFocus(null)}
@@ -67,6 +66,15 @@ const AllEventsSection = () => {
               </button>
             </div>
           ))}
+        </div>
+
+        {/* View All Events Button */}
+        <div className="mt-8 text-center">
+          <Link to="/events">
+            <button className="glass-button px-8 py-3 text-sm font-display tracking-widest hover:shadow-glow-cyan hover-react-strong depth-layer-button">
+              VIEW ALL EVENTS DETAILS
+            </button>
+          </Link>
         </div>
       </div>
 
