@@ -1,4 +1,3 @@
-import { useState } from "react";
 import cinematicBg from "@/assets/cinematic-bg.jpg";
 import GlassNavigation from "@/components/GlassNavigation";
 import HeroSection from "@/components/HeroSection";
@@ -8,6 +7,8 @@ import AboutSection from "@/components/AboutSection";
 import GeneralGuidelinesSection from "@/components/GeneralGuidelinesSection";
 import LiquidBackground from "@/components/LiquidBackground";
 import Footer from "@/components/Footer";
+import MobileIndex from "@/pages/MobileIndex";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type Stage = "intro-sequence" | "settle";
 
@@ -16,8 +17,15 @@ type IndexProps = {
 };
 
 const Index = ({ stage }: IndexProps) => {
+  const isMobile = useIsMobile();
   const isSettled = stage === "settle";
 
+  // Render mobile-specific UI on mobile devices
+  if (isMobile) {
+    return <MobileIndex stage={stage} />;
+  }
+
+  // Desktop UI
   return (
     <div className="min-h-screen relative overflow-y-auto overflow-x-hidden">
       {/* Cinematic background */}
