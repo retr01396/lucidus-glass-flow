@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Play, Calendar, Trophy, Swords } from "lucide-react";
+import { Calendar, Trophy, Swords } from "lucide-react";
 import lucidusLogo from "@/assets/lucidus-logo.png";
 import { useCinematicReveal } from "@/hooks/use-cinematic-reveal";
 
@@ -152,26 +152,6 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
                     </span>
                   </div>
                   {index < 3 && <span className="text-cyan-500/40 text-2xl mx-1 font-display">:</span>}
-                </div>
-              ))}
-            </div>
-
-            {/* Video Cards */}
-            <div className="grid grid-cols-3 gap-3 md:gap-4 pt-4">
-              {["DEAN'S MESSAGE", "FEST THEME", "WATCH TEASER"].map((title, index) => (
-                <div 
-                  key={index} 
-                  className="relative group cursor-pointer"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className="bg-black/60 backdrop-blur-sm border border-white/10 rounded-xl p-4 md:p-5 transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(0,200,255,0.2)] hover:-translate-y-1">
-                    <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-2 rounded-full bg-gradient-to-br from-cyan-600/20 to-orange-600/20 flex items-center justify-center border border-white/10 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(0,200,255,0.4)]">
-                      <Play className="w-4 h-4 md:w-5 md:h-5 text-cyan-400 fill-cyan-400/20 ml-0.5" />
-                    </div>
-                    <span className="text-foreground/70 text-[9px] md:text-[10px] font-semibold text-center font-display tracking-wide block transition-all duration-300 group-hover:text-cyan-400">
-                      {title}
-                    </span>
-                  </div>
                 </div>
               ))}
             </div>
