@@ -255,6 +255,34 @@ export const eventsData: EventsCollection = {
         "Referees decision is final.",
         "Participants responsible for equipment."
       ]
+    },
+    {
+      id: "fest-reel",
+      title: "FEST REEL",
+      category: "Video Reel Competition",
+      prizePool: "₹3,000",
+      prizeDistribution: {
+        first: "₹3,000"
+      },
+      fee: "Free",
+      imageTheme: "Content Creation / Festival",
+      registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header",
+      coordinators: {
+        faculty: "Mr. Vishnu K",
+        student: "Aldrin A J (+91 88480 52598)"
+      },
+      guidelines: [
+        "Only original footage shot during the fest is allowed.",
+        "Reel duration: 60 seconds video using mobile or camera.",
+        "Basic editing allowed (No AI editing).",
+        "Content must be professional and appropriate.",
+        "Reel should include minimum 4 events.",
+        "One reel per participant.",
+        "Submit before the given deadline.",
+        "No vulgarity allowed.",
+        "Participants must bring all necessary accessories (laptop, phone, internet access, etc.).",
+        "Judges decision will be final."
+      ]
     }
   ]
 };
