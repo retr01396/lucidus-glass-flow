@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Coins, Swords, Target, Cog, Users, Trophy, Music, Sparkles, Anchor, Dribbble } from "lucide-react";
+import { Coins, Swords, Target, Cog, Users, Trophy, Music, Sparkles, Anchor, Dribbble, PartyPopper } from "lucide-react";
 import { Link } from "react-router-dom";
 import EventDetailModal from "./EventDetailModal";
 import { useCinematicReveal, useFocusSpotlight } from "@/hooks/use-cinematic-reveal";
@@ -34,6 +34,68 @@ const AllEventsSection = () => {
         <h2 className={`font-display text-xl font-bold text-foreground mb-6 tracking-wide text-glow-cyan text-center ${isVisible ? 'animate-fade-in-down' : 'opacity-0'}`}>
           ALL EVENTS
         </h2>
+
+        {/* Foam Party Announcement */}
+        <div className={`relative overflow-hidden bg-black/60 backdrop-blur-xl border-2 border-cyan-500/40 rounded-2xl p-5 mb-6 shadow-[0_0_50px_rgba(0,200,255,0.3)] hover-react-subtle ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/10 via-purple-600/10 to-orange-600/10 pointer-events-none" style={{
+            backgroundSize: '200% 100%',
+            animation: 'gradientShift 8s ease infinite'
+          }} />
+          
+          {/* Decorative elements */}
+          <div className="absolute top-2 right-2 text-cyan-400/30">
+            <PartyPopper className="w-10 h-10" style={{ animation: 'bounce 2s infinite' }} />
+          </div>
+          <div className="absolute bottom-2 left-2 text-orange-400/30">
+            <PartyPopper className="w-8 h-8" style={{ animation: 'bounce 2.5s infinite', animationDelay: '0.5s' }} />
+          </div>
+          
+          <div className="relative z-10 flex items-start gap-4">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500/30 to-purple-500/30 border-2 border-cyan-400/50 flex items-center justify-center flex-shrink-0 animate-pulse">
+              <PartyPopper className="w-7 h-7 text-cyan-400" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-2xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-orange-400 mb-2" style={{
+                backgroundSize: '200% auto',
+                animation: 'gradientText 4s ease infinite'
+              }}>
+                Get Ready for the Ultimate Foam Party! 🫧
+              </h3>
+              <p className="text-white/90 text-sm leading-relaxed mb-2">
+                We are turning up the volume and the bubbles! You are invited to our <span className="font-bold text-cyan-300">Foam Party</span>—a mix of <span className="font-semibold text-purple-300">digital creativity</span> and <span className="font-semibold text-orange-300">high-energy fun</span>.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-cyan-500/20 border border-cyan-400/40 rounded-full text-cyan-300 text-xs font-semibold">
+                  Epic Entertainment
+                </span>
+                <span className="px-3 py-1 bg-purple-500/20 border border-purple-400/40 rounded-full text-purple-300 text-xs font-semibold">
+                  Creative Vibes
+                </span>
+                <span className="px-3 py-1 bg-orange-500/20 border border-orange-400/40 rounded-full text-orange-300 text-xs font-semibold">
+                  Unforgettable Fun
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Bottom glow */}
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-orange-500 opacity-50" />
+        </div>
+
+        <style>{`
+          @keyframes gradientText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+          }
+          @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+          }
+          @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+          }
+        `}</style>
         
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {allEvents.map((event, index) => (
