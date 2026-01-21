@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Flame, Snowflake, ChevronDown } from "lucide-react";
+import { Flame, Snowflake, ChevronDown, PartyPopper } from "lucide-react";
 import { eventsData } from "@/data/eventsData";
 import MobileEventCard from "@/components/mobile/MobileEventCard";
 import { useCinematicReveal } from "@/hooks/use-cinematic-reveal";
@@ -31,6 +31,55 @@ const MobileEventsSection = () => {
           </h2>
           <div className="h-1 w-20 bg-gradient-to-r from-transparent via-orange-500 to-transparent mx-auto" />
         </div>
+
+        {/* Foam Party Announcement */}
+        <div className="relative z-10 overflow-hidden bg-gradient-to-br from-cyan-950/60 via-purple-950/40 to-orange-950/60 backdrop-blur-xl border-2 border-cyan-500/40 rounded-xl p-4 mb-5 shadow-[0_0_30px_rgba(0,200,255,0.3)]">
+          <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/10 via-purple-600/10 to-orange-600/10 animate-gradient-shift pointer-events-none" />
+          
+          {/* Decorative elements */}
+          <div className="absolute top-1 right-1 text-cyan-400/30">
+            <PartyPopper className="w-8 h-8 animate-bounce" style={{ animationDuration: '2s' }} />
+          </div>
+          
+          <div className="relative z-10 flex items-start gap-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500/30 to-purple-500/30 border-2 border-cyan-400/50 flex items-center justify-center flex-shrink-0 animate-pulse">
+              <PartyPopper className="w-6 h-6 text-cyan-400" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-lg font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-orange-400 mb-1 animate-gradient-text">
+                Ultimate Foam Party! 🫧
+              </h3>
+              <p className="text-cyan-100/90 text-xs leading-relaxed mb-2">
+                Turning up the volume and bubbles! Join our Foam Party—a mix of <span className="font-semibold text-purple-300">digital creativity</span> and <span className="font-semibold text-orange-300">high-energy fun</span>.
+              </p>
+              <div className="flex flex-wrap gap-1">
+                <span className="px-2 py-0.5 bg-cyan-500/20 border border-cyan-400/30 rounded-full text-cyan-300 text-[10px] font-semibold">
+                  Epic Fun
+                </span>
+                <span className="px-2 py-0.5 bg-purple-500/20 border border-purple-400/30 rounded-full text-purple-300 text-[10px] font-semibold">
+                  Creative
+                </span>
+                <span className="px-2 py-0.5 bg-orange-500/20 border border-orange-400/30 rounded-full text-orange-300 text-[10px] font-semibold">
+                  Unforgettable
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Bottom glow */}
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-orange-500 opacity-50" />
+        </div>
+
+        <style>{`
+          @keyframes gradient-text {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+          }
+          .animate-gradient-text {
+            background-size: 200% auto;
+            animation: gradient-text 4s ease infinite;
+          }
+        `}</style>
 
         {/* Tab Selector - Enhanced */}
         <div className="relative z-10 flex gap-2 mb-5">

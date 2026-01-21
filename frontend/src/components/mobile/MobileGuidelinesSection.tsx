@@ -24,6 +24,8 @@ const MobileGuidelinesSection = () => {
         "College ID card is mandatory",
         "Report 30 minutes before your event",
         "Late reporting may lead to disqualification",
+        "Bring your personal laptop with charger (hands-on session)",
+        "Food and beverages provided—no need to pack lunch!",
       ]
     },
     {

@@ -1,5 +1,5 @@
 import { useCinematicReveal } from "@/hooks/use-cinematic-reveal";
-import { Shield, CheckCircle2, AlertTriangle, User, Calendar, FileText, Award, DollarSign, AlertCircle, Gavel } from "lucide-react";
+import { Shield, CheckCircle2, AlertTriangle, User, Calendar, FileText, Award, DollarSign, AlertCircle, Gavel, Laptop, UtensilsCrossed } from "lucide-react";
 import { useState } from "react";
 
 const GeneralGuidelinesSection = () => {
@@ -31,6 +31,8 @@ const GeneralGuidelinesSection = () => {
         "Event round details will be shared via registered contact details",
         "Participants must report at least 30 minutes before the allotted time",
         "Late reporting may lead to disqualification",
+        "Device Requirement: Please ensure you bring your personal laptop along with its charger, as this will be a hands-on session",
+        "Refreshments: No need to pack a lunch! Food and beverages will be provided for all attendees",
       ]
     },
     {
