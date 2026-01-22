@@ -264,7 +264,7 @@ export const eventsData: EventsCollection = {
       prizeDistribution: {
         first: "₹3,000"
       },
-      fee: "Free",
+      fee: "₹250",
       imageTheme: "Content Creation / Festival",
       registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSdIl9LhrgavWOCrQDQonVcvk7uv2yS9URwZFckXdvbWQbM7Xw/viewform?usp=header",
       coordinators: {
